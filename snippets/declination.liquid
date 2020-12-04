@@ -1,0 +1,51 @@
+{% comment %}
+  {% include "declination", items_count: cart.items_count %}
+  {% include "declination", items_count: collection.products_count %}
+
+  {% capture products_count %}{% include "declination", items_count: collection.products_count, items_names: 'книга,книги,книг' %}{% endcapture %}
+  [{{ products_count | strip }}]
+  [{% include "declination", items_count: collection.products_count, items_names: 'машина,машины,машин' %}]
+
+  =>[книг] [ машин ]
+
+  <div class="products_count">
+    {{ collection.products_count }} {% include "declination", items_count: collection.products_count %}
+  </div>
+{% endcomment %}
+{% unless items_names %}
+  {% assign items_names = messages.label_product_1 | append: ',' | append: messages.label_product_2 | append: ',' | append: messages.label_product_3 %}
+  {% else %}
+  {% assign items_names = items_names %}
+{% endunless %}
+
+{% if items_count %}
+  {% assign _items_names = items_names | split: ',' %}
+
+  {% assign itemsize = items_count | modulo: 100 %}
+  {% assign itemsizex = itemsize | modulo: 10 %}
+
+  {% if itemsizex == 1 %}
+    {% assign productnames = _items_names[0] %}
+  {% endif %}
+
+  {% if itemsizex == 0 %}
+    {% assign productnames = _items_names[2] %}
+  {% endif %}
+
+  {% if itemsizex > 4 and itemsizex < 10 %}
+    {% assign productnames = _items_names[2] %}
+  {% endif %}
+
+  {% if itemsizex > 1 and itemsizex < 5 %}
+    {% assign productnames = _items_names[1] %}
+  {% endif %}
+
+  {% if itemsize > 4 and itemsize < 20 %}
+    {% assign productnames = _items_names[2] %}
+  {% endif %}
+  {{ productnames }}
+{% endif %}
+
+{% assign items_count = nil %}
+{% assign productnames = nil %}
+{% assign items_names = nil %}

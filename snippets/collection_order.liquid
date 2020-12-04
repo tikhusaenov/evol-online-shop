@@ -1,0 +1,46 @@
+{% if hide_sort %}
+  {% assign sort_attr = 'hidden' %}
+{% endif %}
+
+{% if hide_page_size %}
+  {% assign page_size_attr = 'hidden' %}
+{% endif %}
+
+<form class="collection-order-wrapper row flex-middle flex-end-xs" action="{{ collection.url }}" method="get">
+
+  {% if sort_on == true %}
+    <div class="collection-order is-order cell- cell-12-xs m-r-20 m-r-0-xs m-b-10-xs" {{ sort_attr }}>
+
+      <label class="label-field hide-sm colorfilter">{{ messages.label_sort }}</label> 
+
+      <select class="colorfilt slct js-filter-trigger" name="order">
+        {{ "" | select_option: order, messages.s_default_small }}
+        {{ "price" | select_option: order, messages.sort_by_price }}
+        {{ "descending_price" | select_option: order, messages.sort_by_price_desc }}
+        {{ "descending_age" | select_option: order, messages.sort_by_createdon }}
+        {{ "title" | select_option: order, messages.sort_by_title }}
+
+      </select>
+
+    </div>
+  {% endif %}
+
+  {% if page_size_on == true %}
+    <div class="collection-order is-page-size cell- cell-12-xs " {{ page_size_attr }}>
+
+      <label class="colorfilter label-field hide-sm">{{ messages.label_limit }}</label>
+
+      {% include "page_sizes", page_steps: '12,24,48,96', input_type: 'select' %}
+
+    </div>
+  {% endif %}
+
+  {% include "filter_fields" %}
+
+</form>
+
+
+{% assign hide_sort = nil %}
+{% assign sort_class = nil %}
+{% assign hide_page_size = nil %}
+{% assign page_size_class = nil %}

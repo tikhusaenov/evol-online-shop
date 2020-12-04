@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang='ru' xml:lang='ru' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+  <meta content='noindex, nofollow' name='robots'>
+  <title>{% yield 'title' %}</title>
+  {{ 'checkout' | global_stylesheet_tag }}
+  {% assign custom_checkout_css = 'custom_checkout.css' | asset_url_if_exists %}
+  {% if custom_checkout_css %}
+  <link href='{{ custom_checkout_css }}' rel='stylesheet'>
+  {% endif %}
+  {{ 'checkout' | global_javascript_tag }}
+  {% include "head", is_checkout: true %}
+  {% include "styles" %}
+</head>
+<body class="template-is-checkout not-index-page">
+  {% include "header" %}
+  <div class='wrapper body fc'>
+    {% if client %}
+    <div class='userbar fc'>
+      <div class='links fl'>
+        {% if linklists.account-menu %}
+        {% for link in linklists.account-menu.links %}<a href='{{ link.url }}'>
+          {{ link.title }}
+        </a>|{% endfor %}
+        {% else %}<a href='/'>
+          <span class='b'>Вернуться в магазин</span>
+        </a>|<a href='/client_account/contacts'>
+          <span>Контактные данные</span>
+        </a>|<a href='/client_account/addresses'>
+          <span>Адрес доставки</span>
+        </a>|<a href='/client_account/orders'>
+          <span>Заказы и скидки</span>
+        </a>|<a href='/client_account/feedback'>
+          <span>Обратная связь</span>
+        </a>{% endif %}
+      </div>
+      <div class='profile fr'>
+        {{ client.full_name }}
+        <b></b>
+        (<a href='/client_account/exit'>Выход</a>)
+      </div>
+    </div>
+    {% endif %}
+    <div class='page-title'>{% yield 'title' %}</div>
+    {% yield 'flash_messages' %}
+    <div id='top_info'>{% yield 'top_info' %}</div>
+    {% yield %}
+    {% yield 'sidebar' %}
+  </div>
+  {% include "footer" %}
+  {% include "scripts", is_checkout: true %}
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    $(document).on('change', '#contacts #client_change_password', function(event) {
+      event.preventDefault();
+        if ($(this).prop('checked')) {
+          $('#change_password_fields').show();
+          $('#change_password_fields input').removeAttr('disabled');
+        }else{
+          $('#change_password_fields').hide();
+          $('#change_password_fields input').attr('disabled', 'disabled');
+        }
+
+      });
+      var _activeMenu = '';
+      if (testUrlActive('/client_account/contacts')) {
+        _activeMenu = '[href="/client_account/contacts"]'
+      }
+      if (testUrlActive('/client_account/addresses')) {
+        _activeMenu = '[href="/client_account/addresses"]'
+      }
+      if (testUrlActive('/client_account/orders')) {
+        _activeMenu = '[href="/client_account/orders"]'
+      }
+      if (testUrlActive('/client_account/feedback')) {
+        _activeMenu = '[href="/client_account/feedback"]'
+      }
+
+      $(_activeMenu).addClass('is-active-link');
+
+      function testUrlActive(_url) {
+        return window.location.href.indexOf(_url) > -1;
+      }
+    });
+  </script>
+</body>
+</html>

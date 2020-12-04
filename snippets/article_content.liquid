@@ -1,0 +1,6 @@
+{% include "social_share" %}
+
+{% for product in article.related_products %}
+  {% assign hide_product = false %}
+  {% include "products_slider", products_title: 'Товары к статье:', products_prefix: 'is-related', card_prefix: 'in-product', hide_product: hide_product  %}
+{% endfor %}

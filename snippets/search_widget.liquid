@@ -1,0 +1,26 @@
+<div class="search-popup content-middle" custom-popup-modal="search-form">
+  <div class="search-inner">
+    <a class="button-close" href="#" custom-popup-close="search-form">
+      {% include "svg" with "icon_close" %}
+    </a>
+
+    <form action="/search" method="get" class="search_widget">
+      <div class="inpt-group text-center">
+        <input type="text" autocomplete="off" class="inpt inpt-underline" name="q" value="" placeholder="{{ messages.t_search }}" data-search-field />
+        <button type="submit" class="bttn-underline">
+          <span class="inline-middle">{{ messages.search_title }}</span>
+          &nbsp;
+          <span class="transition inline-middle">{% include 'svg' with 'arrow-right' %}</span>
+        </button>
+      </div>
+      <input type="hidden" name="lang" value="{{ language.locale }}">
+      {% comment %}
+        <div class="search_widget-result">
+          <div data-search-result class="search_widget-result-inner"></div>
+        </div>
+      {% endcomment %}
+    </form>
+  </div>
+</div>
+
+<div class="popup-bg" custom-popup-bg="search-form"></div>

@@ -1,0 +1,14 @@
+{% include 'breadcrumb' %}
+
+<div class="container m-b-50">
+  <h1 class="h1-like">{{ messages.t_search }}</h1>
+  {% paginate search.results by 12 %}
+  
+    {% include "search_results" %}
+
+    <div class="row-text-right m-t-40">
+      {% include "pagination" %}
+    </div>
+
+  {% endpaginate %}
+</div>

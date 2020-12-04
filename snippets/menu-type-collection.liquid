@@ -1,0 +1,53 @@
+{% assign prev_link_level = 1 %}
+{% assign root_level = collections[source_handle].level %}
+<ul class="{{ menu_class }} menu level-1 {{ menu_ul_class }}">
+  {% for link in collections[source_handle].flatten_branch %}
+    {% assign node_level = link.level | minus: root_level %}
+    {% assign _in_limit = level_limit | minus: node_level %}
+    {% assign _next_level_in_limit = _in_limit | minus: 1 %}
+    {% assign show_level = false %}
+    {% if _in_limit >= 0 %}
+      {% assign show_level = true %}
+    {% endif %}
+    {% assign show_next_level = false %}
+    {% if link.subcollections.size > 0 and  _next_level_in_limit >= 0 %}
+      {% assign show_next_level = true %}
+    {% endif %}
+    {% assign current = '' %}
+    {% if show_level %}
+      {% if link.current? %}
+        {% assign current = 'is-current' %}
+      {% endif %}
+      {% assign level_difference = prev_link_level | minus: link.level | minus: root_level %}
+      {% if level_difference > 0 %}
+        {% for i in (1..level_difference) %}
+          </ul>
+          </li>
+        {% endfor %}
+      {% endif %}
+      {% if data_tabs and show_next_level %}
+        {% assign container = 'data-tabs-container' %}
+        {% else %}
+        {% assign container = '' %}
+      {% endif %}
+
+      {% include "menu-item" %}
+
+      {% assign prev_link_level = node_level %}
+      {% if forloop.last %}
+        {% assign prev_link_level = node_level | minus: 1 %}
+        {% for i in (1..prev_link_level) %}
+          </ul>
+          </li>
+        {% endfor %}
+      {% endif %}
+   {% else %}
+    {% if forloop.last and node_level > level_limit %}
+          </ul>
+        {% endif %}
+    {% endif %}
+
+  {% endfor %}
+
+
+</ul>

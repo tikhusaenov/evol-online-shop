@@ -1,0 +1,273 @@
+@charset "UTF-8";
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+  background-color: var(--color_bg);
+  color: var(--color_text); }
+
+input {
+  border-color: var(--color_text); 
+  outline:none;
+  }
+
+button,
+input[type="submit"],
+a:not(.no-transparent) {
+  -webkit-transition: all 300ms;
+  -o-transition: all 300ms;
+  transition: all 300ms; }
+  button:hover,
+  input[type="submit"]:hover,
+  a:not(.no-transparent):hover {
+    opacity: 1; }
+
+[class*='bttn-'] {
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+  font-family: inherit;
+  overflow: hidden; }
+
+[class*='bttn-'][disabled] {
+  opacity: 0.5; }
+
+.bttn-link {
+  background-color: transparent;
+  border: 0;
+  padding: 0; }
+
+.bttn-underline {
+  /*
+    <a class="bttn-underline hover-opacity" href="#">
+      <span class="inline-middle">смотреть</span>
+      &nbsp;
+      <span class="transition inline-middle">{% include 'svg' with 'arrow-right' %}</span>
+    </a>
+  */
+  overflow: inherit;
+  background-color: transparent;
+  border: 0;
+  font-family: 'russo one', sans-serif;
+  letter-spacing:1px;
+  white-space: nowrap;
+  font-weight: 500;
+  border-bottom: 2px solid;
+ 
+  padding: 3px 0; }
+  .bttn-underline:hover span:last-child {
+    -o-transform: translate(50%, 0);
+    transform: translate(50%, 0);
+    -webkit-transform: translate(50%, 0);
+    -ms-transform: translate(50%, 0); }
+
+.bttn-reg {
+  height: 40px;
+  line-height: 40px;
+  border: 0;
+  font-size: 1em; }
+
+.slct {
+  color: inherit;
+  outline: none;
+  font-family: inherit;
+  font-weight: 300;
+  background-color: transparent;
+  border: 0;
+  padding: 0 30px 0 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-size: 14px;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 8px) 50%;
+  background-image: var(--select-arrow); }
+  .slct.option-values {
+    /*background: url(icon_shevron-down.svg) calc(100% - 15px) center no-repeat; */
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    padding: 7px 35px 7px 15px; }
+    .slct.option-values option {
+      background-color: var(--color_bg_content);
+      color: var(--color_text); }
+
+button.option-value {
+  outline: none;
+  background: transparent;
+  -webkit-appearance: none;
+  font-weight: 300;
+  border: 1px solid;
+  padding: 5px 10px;
+  margin: 0 5px 5px 0; }
+  button.option-value[selected] {
+    
+    font-family: 'Oswald', sans-serif;
+   font-weight:500;
+    letter-spacing: 1px;
+    
+    outline: 2px solid black;
+    padding: 2px 12px; }
+  button.option-value[disabled] {
+    opacity: 0.5; }
+
+.burger {
+  /* <div class="burger /orange/"><div></div></div> */
+  display:none;
+  position: relative;
+  width: 30px;
+  height: 20px; }
+  .burger > div, .burger:before, .burger:after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    width: 100%;
+    -webkit-transition: all 300ms;
+    -o-transition: all 300ms;
+    transition: all 300ms; }
+  .burger:before, .burger:after {
+    content: ''; }
+  .burger > div {
+    top: 9px; }
+  .burger:before {
+    top: 0; }
+  .burger:after {
+    bottom: 0; }
+
+
+.quantity {
+  position: relative; }
+      .quantity .quantity-input {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+   
+    
+   }
+  .quantity button, .quantity a {
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    background-color: transparent;
+    width: 30px;
+    
+    text-align: center;
+    color: #A84466; }
+    .quantity button:first-child, .quantity a:first-child {
+      left: 1px; }
+    .quantity button:last-child, .quantity a:last-child {
+      right: 1px; }
+  .quantity.is-basket .quantity-input {
+    width: 80px;
+    border: 0;
+    padding: 7px 25px;
+    }
+  .quantity.is-basket button, .quantity.is-basket a {
+   
+    border-left: 0;
+    border-right: 0; }
+
+input.quantity-input {
+  background: linear-gradient(90deg,white, white );
+  color: black; 
+  font-family: 'Russo One', sans-serif;
+  
+}
+input.quan-color {
+  background: black;
+  color: white; 
+}
+.quantity .quantity-control {
+  background-color: black;
+  color: white;
+  box-shadow: 0 0 2px black;
+  border-radius: 5px;
+  border-color: black; }
+.quantity .quantity-control:hover {
+   color: green;
+   background-color: white;
+   transform: scale(1.1)
+}
+.quantity .quan-color_1 {
+  background-color: transparent !important;
+  color: white;
+  
+}
+
+
+
+.chkbx-label {
+  width: 100%;
+  margin: 10px 0; }
+  .chkbx-label input[type="checkbox"] {
+    display: none; }
+    .chkbx-label input[type="checkbox"] + .chkbx-control {
+      width: 1.75em;
+      height: 1.75em;
+      margin-right: 10px; }
+      .chkbx-label input[type="checkbox"] + .chkbx-control .unchecked {
+        display: block; }
+      .chkbx-label input[type="checkbox"] + .chkbx-control .checked {
+        display: none; }
+    .chkbx-label input[type="checkbox"]:checked + .chkbx-control .unchecked {
+      display: none; }
+    .chkbx-label input[type="checkbox"]:checked + .chkbx-control .checked {
+      display: block; }
+  .chkbx-label > span {
+    display: inline-block;
+    vertical-align: middle; }
+    .chkbx-label > span:last-child {
+      width: calc(100% - 50px); }
+
+.inpt {
+  outline: none;
+  height: 40px; }
+  .inpt.inpt-underline {
+    border: 0;
+     border-bottom: 1px solid #ffc9cb;
+    padding: 0; }
+
+.notice {
+  background-color: var(--color_bg_content);
+  font-family:'Montserrat Alternates', sans-serif;
+  color: black;
+  padding: 10px 15px; }
+  .notice.notice-error {
+    background-color: #f65050;
+    color: #fff; }
+  .notice.notice-success {
+    background-color: #6b9c6b;
+    color: #fff; }
+  .notice.notice-empty {
+    font-size: 12px;
+    font-family:'Montserrat Alternates', sans-serif;
+    background-color: #fff8f4; }
+
+.text-error {
+  color: #f65050; }
+
+.button-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer; 
+  color: #ffc9cb;
+  }
+.button-close:hover {
+  color:  #FF5DDB;
+}
+
+@media screen and (max-width: 1200px) {
+  .burger {
+    display: block;
+    width: 20px;
+    height: 11px; }
+    .burger > div, .burger:before, .burger:after {
+      height: 1px; }
+    .burger > div {
+      top: 5px; } }
+
+/*# sourceMappingURL=buttons.css.map */

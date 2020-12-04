@@ -1,0 +1,54 @@
+{% assign class_filter = '' %}
+
+{% comment %}
+  Проверка на порядковый номер секции фильтра
+{% endcomment %}
+{% if counter <= open_until %}
+  {% assign is_open_filter = true %}
+{% endif %}
+
+{% comment %}
+  Активен фильтр цены?
+{% endcomment %}
+
+
+{% comment %}
+  Активен фильтр параметра?
+{% endcomment %}
+{% if open_active_filter and property_active == 'data-active-filter' %}
+  {% assign is_open_property = true %}
+{% endif %}
+
+{% comment %}
+  Активен фильтр свойства?
+{% endcomment %}
+{% if open_active_filter and option_active == 'data-active-filter' %}
+  {% assign is_open_option = true %}
+{% endif %}
+
+{% comment %}
+  Активен фильтр параметра? (проверка по тайтлу)
+{% endcomment %}
+{% for _prop in open_properties %}
+  {% if _prop == property.title %}
+  {% assign is_open_property = true %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}
+  Активен фильтр свойства? (проверка по тайтлу)
+{% endcomment %}
+{% for _prop in open_options %}
+  {% if _prop == option.title %}
+  {% assign is_open_option = true %}
+  {% endif %}
+{% endfor %}
+
+{% if is_open_filter or is_open_price or is_open_property or is_open_option %}
+  {% assign class_filter = 'is-close-container|is-button-close|is-tab-close' | split: '|' %}
+{% endif %}
+
+{% assign is_open_filter = nil %}
+{% assign is_open_price = nil %}
+{% assign is_open_property = nil %}
+{% assign is_open_option = nil %}

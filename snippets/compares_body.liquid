@@ -1,0 +1,87 @@
+<div id="js-compare-wrapper" class="compares container">
+
+  {% if products.size > 0 %}
+
+    <div id="js-compare-inner">
+
+      {% for property in properties %}
+        {% unless property.differ? %}
+          {% assign same_trigger = true %}
+        {% endunless %}
+      {% endfor %}
+
+      {% if same_trigger %}
+        <div class="compare-toolbar container">
+          <button type="button" class="bttn button-black button-same-toggle js-same-toggle">
+            <span class="link-text text-hide">Скрыть одинаковые</span>
+            <span class="link-text text-show">Показать одинаковые</span>
+            <i class="fa fa-eye"></i>
+            <i class="fa fa-eye-slash"></i>
+          </button>
+        </div>
+      {% endif %}
+
+      <table class="table table-compare table-striped js-compare-table">
+        <tr>
+          <td class="param-title">Товар</td>
+          {% for product in products %}
+            <td class="param-value" data-compared-id="{{ product.id }}">
+              <div class="product-title">
+                <a class="title-link" href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</a>
+              </div>
+            </td>
+          {% endfor %}
+        </tr>
+
+        <tr>
+          <td class="param-title">Фото</td>
+          {% for product in products %}
+            <td class="param-value" data-compared-id="{{ product.id }}">
+              <a href="{{ product.url }}" title="{{ product.title }}">
+                <img src="{{ product.images.first.medium_url }}" alt="{{ product.images.first.title }}"
+                     title="{{ product.images.first.title }}">
+              </a>
+            </td>
+          {% endfor %}
+        </tr>
+
+        {% for property in properties %}
+
+          <tr class="{% unless property.differ? %}same-row{% endunless %}">
+
+            <td class="param-title">{{ property.title }}</td>
+
+            {% for product in products %}
+              <td class="param-value" data-compared-id="{{ product.id }}">
+                {% for characteristic in product.properties[property.handle].characteristics %}
+                  {{ characteristic.title }}{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              </td>
+            {% endfor %}
+          </tr>
+
+        {% endfor %}
+
+        <tr>
+          <td class="param-title">Удалить</td>
+          {% for product in products %}
+            <td class="param-value" data-compared-id="{{ product.id }}">
+              <a href="#" title="Удалить из сравнения" class="bttn button-black"
+                 data-compare-delete="{{ product.id }}">
+                <span class="bttn-text"> Удалить</span> <i class="fa fa-times"></i>
+              </a>
+            </td>
+          {% endfor %}
+        </tr>
+
+      </table>
+
+    </div>
+
+  {% else %}
+
+    <div class="notice notice-info text-center">Список сравнения пуст</div>
+
+  {% endif %}
+
+</div>

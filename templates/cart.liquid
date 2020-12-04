@@ -1,0 +1,11 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    var ref = document.referrer;
+
+    if(ref.length > 0){
+      location.href = ref;
+    } else{
+      location.href = '/';
+    }
+  });
+</script>

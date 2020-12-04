@@ -1,0 +1,19 @@
+{% if logotypes == 'header' %}
+	{% if settings.logotype_type == 'image' %}
+    <img class="show" src="{{ 'logotype_1.png' | asset_url }}" alt="{{ account.title }}" title="{{ account.title | strip_html }}" />
+  {% else %}
+    <span style="font-family: '{{ settings.logotype_font_family }}'; font-size: {{ settings.logotype_font_size }};">{{ account.title }}</span>
+  {% endif %}
+{% endif %}
+
+{% if logotypes == 'footer' %}
+	{% if settings.logotype_type == 'image' %}
+    {% if settings.logotype_use_both == '1' or settings.logotype_use_both == 'on' %}
+      <img src="{{ 'logotype_1.png' | asset_url }}" alt="{{ account.title | strip_html }}" title="{{ account.title | strip_html }}" />
+    {% else %}
+      <img src="{{ 'logotype_2.png' | asset_url }}" alt="{{ account.title | strip_html }}" title="{{ account.title | strip_html }}" />
+    {% endif %}
+  {% else %}
+    <span style="font-family: '{{ settings.logotype_font_family }}'; font-size: {{ settings.logotype_font_size }};">{{ account.title }}</span>
+  {% endif %}
+{% endif %}

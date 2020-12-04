@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html class='{{ default_checkout2_layout_class }} insales-checkout2' lang='ru' xml:lang='ru' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+  <meta content='noindex, nofollow' name='robots'>
+  <meta content='width=device-width, initial-scale=1.0 user-scalable=no' name='viewport'>
+
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,500,700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <title>{% yield 'title' %}</title>
+
+  {{ 'checkout2' | global_stylesheet_tag }}
+  {% assign custom_checkout_css = 'custom_checkout2.css' | asset_url_if_exists %}
+  {% if custom_checkout_css %}
+  <link href='{{ custom_checkout_css }}' rel='stylesheet'>
+  {% endif %}
+
+  {% include "styles", is_checkout: true %}
+</head>
+<body class='adaptive template-is-checkout2 not-index-page'>
+  {% include "header" %}
+  <div class="b-bottom"></div>
+
+  {% yield 'menu' %}
+
+  <div class="container m-t-50 m-b-70">
+
+  <div>
+    <div>
+      <div  class="reg-title  text-center">
+        <h1 class='h2-like'>{% yield 'title' %}</h1>
+        
+        <div class="decor-arrow m-b-50 m-b-20-sm"></div>
+      </div>
+
+      {% yield %}
+    </div>
+  </div>
+
+  </div>
+
+  {% include "footer" %}
+  {% include "scripts", is_checkout: true %}
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="https://pickpoint.ru/select/postamat.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    function my_function(result){
+      // устанавливаем в скрытое поле ID терминала
+      document.getElementById('pickpoint_id').value=result['id'];
+      
+      // показываем пользователю название точки и адрес доствки
+      document.getElementById('address').innerHTML=result['name']+'<br />'+result['address'];
+    }
+  </script>
+</body>
+</html>

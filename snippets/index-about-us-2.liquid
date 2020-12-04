@@ -1,0 +1,8 @@
+<span class="hot h2-like">Горячие товары этой недели</span>
+{% if data.blocks.size > 0 %}
+	{% for block in data.blocks %}
+	<div class="ranger_promo">
+		<img class="promo-2 p-t-100 p-b-100 p-t-0-lg p-b-0-lg" src="{{ block.image }}">
+	</div>
+	{% endfor %}
+{% endif %}

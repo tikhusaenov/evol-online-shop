@@ -1,0 +1,533 @@
+<div style="padding: 10px 15px;">{{ messages.s_blocks }}</div>
+
+<fieldset>
+  <legend>{{ messages.s_subheading_favicon }}</legend>
+
+  <table>
+    <tr>
+      <td> <label for="favicon" style="display: block; margin-top: 10px;">{{ messages.s_favicon }}</label> </td>
+      <td> <input name="favicon.png" id="favicon" type="file" data-max-width="32" data-max-height="32" /> </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_subheading_logotype }}</legend>
+  <table>
+    <tr>
+      <td> <label for="logotype_type" style="display: block; margin-top: 10px;">{{ messages.s_logotype_type }}</label> </td>
+      <td> <select name="logotype_type" id="logotype_type">
+        <option value="image">{{ messages.image }}</option>
+        <option value="text">{{ messages.site_name }}</option>
+      </select> </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <h2>{{ messages.s_logo_image }}</h2>
+      </td>
+    </tr>
+    <tr>
+      <td> <label for="logotype_image_header">{{ messages.s_logotype_image }} {{ messages.s_for_header }}</label> </td>
+      <td> <input name="logotype_1.png" id="logotype_image_header" type="file" data-max-width="300" data-max-height="300" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="logotype_image_footer">{{ messages.s_logotype_image }} {{ messages.s_for_footer }}</label> </td>
+      <td> <input name="logotype_2.png" id="logotype_image_footer" type="file" data-max-width="300" data-max-height="300" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="logotype_use_both">{{ messages.s_use_same_logo }}</label> </td>
+      <td> <input name="logotype_use_both" id="logotype_use_both" type="checkbox" /> </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <h2>{{ messages.s_logo_text }}</h2>
+      </td>
+    </tr>
+    <tr>
+      <td> <label for="logotype_font_family">{{ messages.s_logotype_font_family }}</label> </td>
+      <td> <select name="logotype_font_family" id="logotype_font_family">
+        <option value="Roboto">Roboto</option>
+        <option value="Open Sans">Open Sans</option>
+        <option value="Open Sans Condensed">Open Sans Condensed</option>
+        <option value="Montserrat">Montserrat</option>
+        <option value="Oswald">Oswald</option>
+        <option value="Merriweather">Merriweather</option>
+        <option value="Ubuntu">Ubuntu</option>
+        <option value="Playfair Display">Playfair Display</option>
+        <option value="Lobster">Lobster</option>
+        <option value="Pacifico">Pacifico</option>
+        <option value="Exo 2">Exo 2</option>
+        <option value="Amatic SC">Amatic SC</option>
+        <option value="Comfortaa">Comfortaa</option>
+        <option value="Old Standard TT">Old Standard TT</option>
+        <option value="Poiret One">Poiret One</option>
+        <option value="Istok Web">Istok Web</option>
+        <option value="El Messiri">El Messiri</option>
+      </select> </td>
+    </tr>
+    <tr>
+      <td> <label for="logotype_font_size">{{ messages.s_logotype_font_size }}</label> </td>
+      <td> <select name="logotype_font_size" id="logotype_font_size">
+        <option value="20px">20 px</option>
+        <option value="25px">25 px</option>
+        <option value="30px">30 px</option>
+        <option value="35px">35 px</option>
+        <option value="40px">40 px</option>
+      </select> </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_header }}</legend>
+  <table>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="header_menu_permalink">{{ messages.s_header_menu }}</label></td>
+      <td><input name="header_menu_permalink" id="header_menu_permalink" /></td>
+    </tr>
+    <tr>
+      <td colspan="2">{{ messages.s_header_help }}</td>
+    </tr>
+    <tr>
+      <td><label for="header_logo_width">{{ messages.header_logo_width }}</label></td>
+      <td><input name="header_logo_width" id="header_logo_width" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td><label for="header_search_on">{{ messages.s_show_search }}</label></td>
+      <td><input name="header_search_on" id="header_search_on" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td><label for="header_cabinet_on">{{ messages.s_show_cabinet }}</label></td>
+      <td><input name="header_cabinet_on" id="header_cabinet_on" type="checkbox" /></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_footer_name }}</legend>
+  <table>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="footer_menu_permalink">{{ messages.s_footer_menu }}</label></td>
+      <td><input name="footer_menu_permalink" id="footer_menu_permalink" /></td>
+    </tr>
+    <tr>
+      <td colspan="2">{{ messages.s_footer_change }}</td>
+    </tr>
+    <tr>
+      <td colspan="2"><h2>{{ messages.s_logos-payment }}</h2></td>
+    </tr>
+    <tr>
+      <td> <label for="buy-var-1">1:</label> </td>
+      <td> <input name="buy-var-1.png" id="buy-var-1" type="file" data-max-width="80" data-max-height="80" /> </td>
+    </tr>
+    <tr>
+      <td><label for="buy-var-1_on">{{ messages.s_on }}</label></td>
+      <td><input name="buy-var-1_on" id="buy-var-1_on" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td> <label for="buy-var-2">2:</label> </td>
+      <td> <input name="buy-var-2.png" id="buy-var-2" type="file" data-max-width="80" data-max-height="80" /> </td>
+    </tr>
+    <tr>
+      <td><label for="buy-var-2_on">{{ messages.s_on }}</label></td>
+      <td><input name="buy-var-2_on" id="buy-var-2_on" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td> <label for="buy-var-3">3:</label> </td>
+      <td> <input name="buy-var-3.png" id="buy-var-3" type="file" data-max-width="80" data-max-height="80" /> </td>
+    </tr>
+    <tr>
+      <td><label for="buy-var-3_on">{{ messages.s_on }}</label></td>
+      <td><input name="buy-var-3_on" id="buy-var-3_on" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td> <label for="buy-var-4">4:</label> </td>
+      <td> <input name="buy-var-4.png" id="buy-var-4" type="file" data-max-width="80" data-max-height="80" /> </td>
+    </tr>
+    <tr>
+      <td><label for="buy-var-4_on">{{ messages.s_on }}</label></td>
+      <td><input name="buy-var-4_on" id="buy-var-4_on" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td> <label for="buy-var-5">5:</label> </td>
+      <td> <input name="buy-var-5.png" id="buy-var-5" type="file" data-max-width="80" data-max-height="80" /> </td>
+    </tr>
+    <tr>
+      <td><label for="buy-var-5_on">{{ messages.s_on }}</label></td>
+      <td><input name="buy-var-5_on" id="buy-var-5_on" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td colspan="2">*.png</td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.snippet_promo_slider }}</legend>
+  <table>
+    <tr>
+      <td> <label for="promo_slider_autoplay" style="display: block; margin-top: 10px;">{{ messages.s_autoplay_slides }}</label> </td>
+      <td>
+        <select name="promo_slider_autoplay" id="promo_slider_autoplay">
+          <option value="100000000">{{ messages.s_autoplay_off }}</option>
+          <option value="3000">3 {{ messages.s_autoplay_sec }}</option>
+          <option value="5000">5 {{ messages.s_autoplay_sec }}</option>
+          <option value="7000">7 {{ messages.s_autoplay_sec }}</option>
+          <option value="10000">10 {{ messages.s_autoplay_sec }}</option>
+          <option value="15000">15 {{ messages.s_autoplay_sec }}</option>
+          <option value="20000">20 {{ messages.s_autoplay_sec }}</option>
+          <option value="30000">30 {{ messages.s_autoplay_sec }}</option>
+          <option value="60000">60 {{ messages.s_autoplay_sec }}</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_instagram_label }}</legend>
+  <table>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="instagram_main_on">{{ messages.s_on_index }}</label></td>
+      <td><input name="instagram_main_on" id="instagram_main_on" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td><label for="instagram_other_on">{{ messages.s_on_another }}</label></td>
+      <td><input name="instagram_other_on" id="instagram_other_on" type="checkbox" /></td>
+    </tr>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="instagram_link">{{ messages.s_instagram_link }}</label></td>
+      <td><input name="instagram_link" id="instagram_link" /></td>
+    </tr>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="instagram_title">{{ messages.s_instagram_block_title }}</label></td>
+      <td><input name="instagram_title" id="instagram_title" /></td>
+    </tr>
+    <tr>
+      <td colspan="2">{{ messages.s_instagram_token_help }}</td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_collection_title }}</legend>
+
+  <table>
+    <tr>
+      <td> <label for="collection_filter_on" style="display: block; margin-top: 10px;">{{ messages.collection_filter_on }}</label> </td>
+      <td> <input name="collection_filter_on" id="collection_filter_on" type="checkbox" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="collection_sort_on" style="display: block; margin-top: 10px;">{{ messages.collection_sort_on }}</label> </td>
+      <td> <input name="collection_sort_on" id="collection_sort_on" type="checkbox" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="collection_page_size_on" style="display: block; margin-top: 10px;">{{ messages.collection_page_size_on }}</label> </td>
+      <td> <input name="collection_page_size_on" id="collection_page_size_on" type="checkbox" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="collection_description_on" style="display: block; margin-top: 10px;">{{ messages.collection_description_on }}</label> </td>
+      <td> <input name="collection_description_on" id="collection_description_on" type="checkbox" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="collection_description_place" style="display: block; margin-top: 10px;">{{ messages.collection_description_place }}</label> </td>
+      <td>
+        <select name="collection_description_place" id="collection_description_place">
+          <option value="before">{{ messages.collection_before }}</option>
+          <option value="after">{{ messages.collection_after }}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> <label for="collection_short_description_on" style="display: block; margin-top: 10px;">{{ messages.collection_short_description_on }}</label> </td>
+      <td> <input name="collection_short_description_on" id="collection_short_description_on" type="checkbox" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="collection_short_description_place" style="display: block; margin-top: 10px;">{{ messages.collection_short_description_place }}</label> </td>
+      <td>
+        <select name="collection_short_description_place" id="collection_short_description_place">
+          <option value="before">{{ messages.collection_before }}</option>
+          <option value="after">{{ messages.collection_after }}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> <label for="collection_collection_image_on" style="display: block; margin-top: 10px;">{{ messages.collection_collection_image_on }}</label> </td>
+      <td> <input name="collection_collection_image_on" id="collection_collection_image_on" type="checkbox" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="collection_count" style="display: block; margin-top: 10px;">{{ messages.collection_count }}</label> </td>
+      <td>
+        <select name="collection_count" id="collection_count">
+          <option value="12">12</option>
+          <option value="24">24</option>
+          <option value="48">48</option>
+          <option value="96">96</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">{{ messages.s_product_description }}</td>
+    </tr>
+    <tr>
+      <td> <label for="product_img" style="display: block; margin-top: 10px;">{{ messages.product_img }}</label> </td>
+      <td> 
+        <select name="product_img" id="product_img">
+          <option value="">{{ messages.product_img_auto }}</option>
+          <option value="50%">2 : 1</option>
+          <option value="100%">1 : 1</option>
+          <option value="150%">1 : 2</option>
+        </select> 
+      </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_product_title }}</legend>
+
+  <table>
+    <tr>
+      <td> <label for="product_zoom" style="display: block; margin-top: 10px;">{{ messages.s_product_zoom }}</label> </td>
+      <td>
+        <select name="product_zoom" id="product_zoom">
+          <option value="superzoom_circle">{{ messages.s_product_superzoom_circle }}</option>
+          <option value="superzoom_square">{{ messages.s_product_superzoom_square }}</option>
+          <option value="superpopup">{{ messages.s_product_popup }}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> <label for="product_variants" style="display: block; margin-top: 10px;">{{ messages.s_product_variants }}</label> </td>
+      <td>
+        <select name="product_variants" id="product_variants">
+          <option value="option-span">{{ messages.s_product_button }}</option>
+          <option value="option-select">{{ messages.s_product_select }}</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_blog_article }}</legend>
+
+  <table>
+    <tr>
+      <td colspan="2"><h2>{{ messages.s_blog }}</h2></td>
+    </tr>
+    <tr>
+      <td> <label for="blog_mansonry" style="display: block; margin-top: 10px;">{{ messages.s_blog_show }}</label> </td>
+      <td>
+        <select name="blog_mansonry" id="blog_mansonry">
+          <option value="off">{{ messages.s_same_height }}</option>
+          <option value="on">{{ messages.s_dif_height }}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">{{ messages.s_article_descrition }}</td>
+    </tr>
+    <tr>
+      <td> <label for="blog_count" style="display: block; margin-top: 10px;">{{ messages.s_articles_by }}</label> </td>
+      <td>
+        <select name="blog_count" id="blog_count">
+          <option value="3">3</option>
+          <option value="6">6</option>
+          <option value="12">12</option>
+          <option value="18">18</option>
+          <option value="24">24</option>
+          <option value="30">30</option>
+          <option value="42">42</option>
+          <option value="64">64</option>
+          <option value="72">72</option>
+          <option value="99">99</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.block_list_social }}</legend>
+
+  <table>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="social_vk">VK</label></td>
+      <td><input name="vk" id="social_vk" /></td>
+    </tr>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="social_twitter">Twitter</label></td>
+      <td><input name="twitter" id="social_twitter" /></td>
+    </tr>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="social_facebook">Facebook</label></td>
+      <td><input name="facebook" id="social_facebook" /></td>
+    </tr>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="social_instagram">Instagram</label></td>
+      <td><input name="instagram" id="social_instagram" /></td>
+    </tr>
+    <tr>
+      <td><label style="display: block; margin-top: 10px;" for="social_odnoklassniki">OK</label></td>
+      <td><input name="odnoklassniki" id="social_odnoklassniki" /></td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_subheading_mask }}</legend>
+
+  <table>
+    <tr>
+      <td> <label for="mask_use">{{ messages.s_use_mask }}</label> </td>
+      <td> <input name="mask_use" id="mask_use" type="checkbox" /> </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="mask_code">{{ messages.s_mask_code }}</label> </td>
+      <td> <input type="text" id="mask_code" name="mask_code" value="" /> </td>
+    </tr>
+  </table>
+</fieldset>
+
+<div style="padding: 10px 15px;">{{ messages.s_exterior }}</div>
+
+<fieldset>
+  <legend>{{ messages.s_heading_colors }}</legend>
+
+  <table>
+    <tr>
+      <td colspan="2">
+        <div style="padding-top: 10px;">{{ messages.s_help }}</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <h2>{{ messages.s_main_colors }}</h2>
+      </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p1_bg">{{ messages.s_color_background_primary }}</label> </td>
+      <td> <input class="color" id="color_p1_bg" name="color_p1_bg" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p1_text">{{ messages.s_color_text_primary }}</label> </td>
+      <td> <input class="color" id="color_p1_text" name="color_p1_text" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p1_link">{{ messages.s_color_link_primary }}</label> </td>
+      <td> <input class="color" id="color_p1_link" name="color_p1_link" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p1_button_bg">{{ messages.s_color_bg }}</label> </td>
+      <td> <input class="color" id="color_p1_button_bg" name="color_p1_button_bg" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p1_button_text">{{ messages.s_color_button }}</label> </td>
+      <td> <input class="color" id="color_p1_button_text" name="color_p1_button_text" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p1_special">{{ messages.s_color_spec }}</label> </td>
+      <td> <input class="color" id="color_p1_special" name="color_p1_special" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p1_special_2">{{ messages.s_color_spec_2 }}</label> </td>
+      <td> <input class="color" id="color_p1_special_2" name="color_p1_special_2" value="#ffffff" /> </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <h2>{{ messages.s_more_colors }}</h2>
+      </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p2_bg">{{ messages.s_color_background_primary }}</label> </td>
+      <td> <input class="color" id="color_p2_bg" name="color_p2_bg" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p2_text">{{ messages.s_color_text_primary }}</label> </td>
+      <td> <input class="color" id="color_p2_text" name="color_p2_text" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p2_link">{{ messages.s_color_link_primary }}</label> </td>
+      <td> <input class="color" id="color_p2_link" name="color_p2_link" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p2_button_bg">{{ messages.s_color_bg }}</label> </td>
+      <td> <input class="color" id="color_p2_button_bg" name="color_p2_button_bg" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p2_button_text">{{ messages.s_color_button }}</label> </td>
+      <td> <input class="color" id="color_p2_button_text" name="color_p2_button_text" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p2_special">{{ messages.s_color_spec }}</label> </td>
+      <td> <input class="color" id="color_p2_special" name="color_p2_special" value="#ffffff" /> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_p2_special_2">{{ messages.s_color_spec_2 }}</label> </td>
+      <td> <input class="color" id="color_p2_special_2" name="color_p2_special_2" value="#ffffff" /> </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <h2>{{ messages.s_color_bg_content }}</h2> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_bg_content">{{ messages.s_body_background_color }}</label> </td>
+      <td> <input class="color" id="color_bg_content" name="color_bg_content" value="#ffffff" /> </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <h2>{{ messages.s_subheading_background_substrate }}</h2> </td>
+    </tr>
+    <tr>
+      <td> <label for="color_bg_all">{{ messages.s_body_background_color }}</label> </td>
+      <td> <input class="color" id="color_bg_all" name="color_bg_all" value="#ffffff" /> </td>
+    </tr>
+  </table>
+</fieldset>
+
+<fieldset>
+  <legend>{{ messages.s_subheading_fonts }}</legend>
+
+  <table>
+    <tr>
+      <td> <label for="font_family" style="display: block; margin-top: 10px;">{{ messages.s_font_family_primary }}</label> </td>
+      <td> <select name="font_family" id="font_family">
+          <option value="Roboto">Roboto</option>
+          <option value="Open Sans">Open Sans</option>
+          <option value="Open Sans Condensed">Open Sans Condensed</option>
+          <option value="Montserrat">Montserrat</option>
+          <option value="Oswald">Oswald</option>
+          <option value="Merriweather">Merriweather</option>
+          <option value="Ubuntu">Ubuntu</option>
+          <option value="Playfair Display">Playfair Display</option>
+          <option value="Lobster">Lobster</option>
+          <option value="Pacifico">Pacifico</option>
+          <option value="Exo 2">Exo 2</option>
+          <option value="Amatic SC">Amatic SC</option>
+          <option value="Comfortaa">Comfortaa</option>
+          <option value="Old Standard TT">Old Standard TT</option>
+          <option value="Poiret One">Poiret One</option>
+          <option value="Istok Web">Istok Web</option>
+          <option value="El Messiri">El Messiri</option>
+        </select> </td>
+    </tr>
+    <tr>
+      <td> <label for="font_size">{{ messages.s_font_size_primary }}</label> </td>
+      <td> <select name="font_size" id="font_size">
+          <option value="12px">12 px</option>
+          <option value="13px">13 px</option>
+          <option value="14px">14 px</option>
+          <option value="15px">15 px</option>
+          <option value="16px">16 px</option>
+        </select> </td>
+    </tr>
+  </table>
+</fieldset>
+

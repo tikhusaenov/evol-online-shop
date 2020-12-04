@@ -1,0 +1,52 @@
+{% if product.description or account.reviews_enabled? %}
+  <div class="product-description pallette_2  p-t-10-sm p-b-10-sm">
+
+    <div class="container">
+      <div class="row">
+        <div class="cell-12 cell-12-sm push-0-sm">
+          <div class="tabs product_tabs js-tabs" data-tabs-container>
+            <div class="tabs-head text-center m-b-20" data-tab-control="tabs">
+              {% if product.description %}
+                <div class="tabs-item transition inline-top is-button-active h4-like text-uppercase p-t-20 p-l-20 p-r-20 p-b-20 p-t-10-sm p-b-10-sm" data-tab-anchor="description">
+                  {{ messages.label_description }}
+                </div>
+              {% endif %}
+            </div>
+            <div class="tabs-box" data-tab-box="tabs">
+              <div id="editor" class="tabs-target" data-tab-target="description">
+                {{ product.description | editable }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if product.reviews_count > 0 %}
+    <div class="container m-t-20">
+      <div class="row">
+        <div class="cell-12 cell-12-sm push-0-sm">
+          <div class="tabs product_tabs js-tabs" data-tabs-container>
+            <div class="tabs-head text-center m-b-20" data-tab-control="tabs">
+              {% if account.reviews_enabled? %}
+                <div id="review_form" class="tabs-item transition inline-top is-button-active h4-like text-uppercase p-t-20 p-l-20 p-r-20 p-b-20 p-t-10-sm p-b-10-sm" data-tab-anchor="review_form">
+                  {{ messages.label_reviews }} {% if product.reviews_count > 0 %}({{ product.reviews_count }}){% endif %}
+                </div>
+              {% endif %}
+            </div>
+               <div class="tabs-box" data-tab-box="tabs">
+                  {% if account.reviews_enabled? %}
+                  <div class="tabs-target" data-tab-target="review_form">
+                    {% include "product_reviews" %}
+                  </div>
+                  {% endif %}
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+{% endif %}
+{% include 'last_view' %}

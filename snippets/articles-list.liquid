@@ -1,0 +1,17 @@
+{% if settings.blog_count.size > 0 %}
+	{% assign blog_count = settings.blog_count %}
+{% else %}
+	{% assign blog_count = 12 %}
+{% endif %}
+
+{% paginate articles by blog_count %}
+	<div class="articles-list {% if settings.blog_mansonry == 'on' %}mansonry-style{% else %}normal-style row is-grid{% endif %}">
+	  {% for article in articles %}
+	    <div class="{% unless settings.blog_mansonry == 'on' %} cell-4f cell-6-m cell-12-sm{% endunless %} m-b-20">
+	      {% include 'article_preview' %}
+	    </div>
+	  {% endfor %}
+	</div>
+
+	{% include "pagination" %}	
+{% endpaginate %}

@@ -1,0 +1,51 @@
+  
+  {% include "hits", hits_block: block_lists['hits-block'], hits_title: 'Хиты продаж', hit_cells: 'cell-3 cell-4-md cell-6-xs', hit_mod: 'is-hits' %}
+
+
+{% unless hit_mod %}
+  {% assign hit_mod = '' %}
+{% endunless %}
+
+{% unless hits_limit %}
+  {% assign hits_limit = 12 %}
+{% endunless %}
+
+{% assign collections_hit = hits_block.blocks | map: 'collection' %}
+{% assign products_hit = collections_hit | map: 'products' %}
+
+{% if hits_block and hits_block.blocks.size > 0 and collections_hit.size > 0 and products_hit.size > 0 %}
+<div class="hits tabs js-hits {{ hit_mod }}" data-tabs-container>
+  {% if hits_title %}
+  <div class="hits-title">
+    {{ hits_title }}
+  </div>
+  {% endif %}
+
+  <div class="tabs-head">
+    {% for block in hits_block.blocks %}
+    {% if block.collection.products.size > 0 %}
+    <a href="{{ block.collection.url }}" data-tab-anchor="{{ block.collection.handle }}" class="tabs-item">
+      {{ block.title }}
+    </a>
+    {% endif %}
+    {% endfor %}
+  </div>
+  <div class="tabs-box">
+    {% for block in hits_block.blocks %}
+    <div class="tabs-target" data-tab-target="{{ block.collection.handle }}">
+      {% for product in block.collection.products limit: hits_limit %}
+        {% assign hide_product = false %}
+        {% include "products_slider", products_title: false, products_prefix: 'is-hits', card_prefix: 'in-hits', hide_product: hide_product  %}
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endif %}
+
+{% assign hits_block = null %}
+{% assign hits_title = null %}
+{% assign hit_cells = null %}
+{% assign hit_mod = null %}
+{% assign hits_limit = null %}

@@ -1,0 +1,71 @@
+  <footer class="pallette_2 footer_shadow p-t-40">
+  <div class="container">
+    <div class="row is-grid">
+      <div class="cell-4 cell-12-sm text-center-sm">
+          <div>
+          <a class="footimg" href="/" title="{{ account.title }}">
+            <img class="imgof1" src="https://static-eu.insales.ru/files/1/3530/12201418/original/back2Montazhnaya_oblast_1_kopia_7__2___2_.png" class="imagelogo" align="left">
+          </a>
+        </div>
+        <div class="footer-menu"> 
+            <div class="fosize text-uppercase m-b-10">Свяжитесь с нами</div>
+            <ul class="no-list-style footlines fw-300">
+              <li class="footline_op m-t-5 m-b-5"> 
+                <a class="js-modal hover-opacity" href="#feedback-modal">
+                <span class="inline-middle">{{ messages.t_backcall }}</span>
+                &nbsp;
+                
+                </a>
+              </li>
+              <li class="footline_op m-t-5 m-b-5"><a href="/page/feedback">Форма обратной связи</a></li>
+              <li class="footline_op m-t-5 m-b-5"><a href="/">info@evol-market.com</a></li>
+            </ul>
+          </div>
+        <div>
+          <a class="footimg" href="/" title="{{ account.title }}">
+            <img class="imgof" src="https://static-eu.insales.ru/files/1/3530/12201418/original/back2Montazhnaya_oblast_1_kopia_7__2___2_.png" class="imagelogo" align="left">
+            <p class="fosize_1">Обратная сторона твоих желаний</p>
+          </a>
+        </div>
+      </div>
+      <div class="cell-4 cell-12-sm text-center-sm">
+        {% if linklists[settings.footer_menu_permalink].links.size >0 %}
+          <div class="fooleft footer-menu"> 
+            <div class="fosize text-uppercase m-b-10">Сервис и помощь</div>
+            <ul class="no-list-style footlines fw-300">
+              {% for link in linklists[settings.footer_menu_permalink].links %}
+                <li class="footline_op m-t-5 m-b-5"><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %} 
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+      <div class="cell-4 cell-12-sm text-center-sm">
+        <div class="fooright footer-menu"> 
+            <div class="fosize text-uppercase m-b-10">Следите за нами</div>
+            <ul class="no-list-style footlines fw-300">
+              <li class="footline_op socsets_lines ">
+                <a href="{{ link.url }}">Telegram</a>
+                <img class="socset" src="https://static-ru.insales.ru/files/1/3857/12513041/original/yvaMontazhnaya_oblast_1_kopia_300x.png">
+              </li>
+
+              <li class="footline_op socsets_lines ">
+                <a href="{{ link.url }}">Instagram</a>
+                <img class="socset" src="https://static-ru.insales.ru/files/1/3889/12513073/original/yvaMontazhnaya_oblast_1_kopia_2_300x.png">
+              </li>
+              <li class="footline_op socsets_lines ">
+                <a href="https://www.vk.com">Vkontakte</a>
+                <img class="socset" src="https://static-ru.insales.ru/files/1/3877/12513061/original/yvaMontazhnaya_oblast_1_kopia_3_300x.png">
+              </li>
+            </ul>
+          </div>
+      </div>
+
+      <div class="cell-12 text-center">
+        <div class="b-top p-t-20 p-b-20 m-t-30">
+          <small><a href="{{ messages.insales_domain }}" target="_blank">&#169 Все права защищены</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

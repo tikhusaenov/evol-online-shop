@@ -1,0 +1,32 @@
+{% comment %}
+  {% include "quantity", input_type: 'cart' %}
+  {% include "quantity", input_type: 'product' %}
+{% endcomment %}
+
+{% if input_type == 'cart' %}
+    {% capture input_name %}cart[quantity][{{ item.id }}]{% endcapture %}
+    {% unless input_value %}
+      {% assign input_value = item.quantity %}
+    {% endunless %}
+  {% else %}
+    {% assign input_name = 'quantity' %}
+    {% unless input_value %}
+      {% assign input_value = 1 %}
+    {% endunless %}
+{% endif %}
+
+{% unless input_type %}
+  {% assign input_type = 'product' %}
+{% endunless %}
+
+<div data-quantity class="quantity is-{{ input_type }}  show-inline-block">
+  <div class="quantity-controls">
+    <svg data-quantity-change="-1" class="bttn-count" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
+
+    <input class="quantity-input" type="text" name="{{ input_name }}" value="{{ input_value }}" {% if quantity == 'product' %}data-quantity-message{% endif %} />
+
+    <svg data-quantity-change="1" class="bttn-count" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+  </div>
+</div>
+
+{% assign input_value = nil %}

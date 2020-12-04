@@ -1,0 +1,258 @@
+{
+  "collections": {
+    "frontpage": "{{ messages.collection_frontpage }}",
+    "popular": "{{ messages.collection_popular }}"
+  },
+
+  "menus": {
+    "main-menu": "{{ messages.main_menu }}",
+    "footer-menu": "{{ messages.footer_menu }}"
+  },
+
+  "pages": {
+    "contacts": "{{ messages.page_contacts }}"
+  },
+
+  "menu_items": {
+    "main-menu": {
+      "{{ messages.s_collection_title }}": "/collection/all",
+      "{{ messages.page_blog }}": "/blogs/blog",
+      "{{ messages.page_contacts }}": "/page/contacts"
+    },
+    "footer-menu": {
+      "{{ messages.s_collection_title }}": "/collection/all",
+      "{{ messages.page_blog }}": "/blogs/blog",
+      "{{ messages.page_contacts }}": "/page/contacts"
+    }
+  },
+
+  "block_templates": {
+    "slider_block": {
+      "name": "{{ messages.s2_slider }}",
+      "block_fields": {
+        "image": {
+          "name": "{{ messages.s2_image }}",
+          "kind": "account_file"
+        },
+        "linktext": {
+          "name": "{{ messages.s2_text }}",
+          "kind": "text"
+        },
+        "link": {
+          "name": "{{ messages.s2_link }}",
+          "kind": "text"
+        },
+        "description": {
+          "name": "{{ messages.s2_content }}",
+          "kind": "rich_text"
+        },
+        "heading": {
+          "name": "{{ messages.s2_heading }}",
+          "kind": "text"
+        }
+      }
+    }
+  },
+
+  "block_lists": {
+    "promo": {
+      "block_template": "slider_block",
+      "title": "{{ messages.s2_slider }}",
+      "blocks": [ "promo_1", "promo_2" ]
+    },
+    "about": {
+      "block_template": "slider_block",
+      "title": "{{ messages.s2_about }}",
+      "blocks": [ "about_block" ]
+    },
+    "reviews": {
+      "block_template": "system-review",
+      "title": "{{ messages.s2_reviews }}",
+      "blocks": [ "review_1", "review_2", "review_3" ]
+    },
+    "about-bg": {
+      "block_template": "slider_block",
+      "title": "{{ messages.s2_about_2 }}",
+      "blocks": [ "about_bg_block" ]
+    },
+    "index-products": {
+      "title": "{{ messages.s2_index_products }}",
+      "block_template": "system-collection",
+      "blocks": [ "collection_1" ]
+    },
+    "shops": {
+      "title": "{{ messages.s2_shops }}",
+      "block_template": "slider_block",
+      "blocks": [ "shop_1", "shop_2", "shop_3" ]
+    }
+  },
+
+  "blocks": {
+    "promo_1": {
+      "title": "{{ messages.s2_slider_title }}",
+      "heading": "{{ messages.s2_slider_title }}",
+      "description": "{{ messages.s2_slider_description }}",
+      "link": "/collection/all",
+      "linktext": "{{ messages.s2_button_text }}",
+      "image": "slide.jpg",
+      "block_template": "slider_block"
+    },
+    "promo_2": {
+      "title": "{{ messages.s2_slider_title_2 }}",
+      "heading": "{{ messages.s2_slider_title_2 }}",
+      "description": "{{ messages.s2_button_description_2 }}",
+      "link": "",
+      "linktext": "",
+      "image": "slide.jpg",
+      "block_template": "slider_block"
+    },
+    "about_block": {
+      "title": "{{ messages.s2_about_title }}",
+      "heading": "{{ messages.s2_about_title }}",
+      "description": "{{ messages.s2_about_description }}",
+      "link": "/collection/all",
+      "linktext": "{{ messages.s2_about_button_text }}",
+      "image": "photo-1.jpg",
+      "block_template": "slider_block"
+    },
+    "review_1": {
+      "title": "{{ messages.s2_review_1 }}",
+      "name": "{{ messages.s2_review_name }}",
+      "content": "{{ messages.s2_review_description }}",
+      "image": "review-1.jpg",
+      "block_template": "system-review"
+    },
+    "review_2": {
+      "title": "{{ messages.s2_review_2 }}",
+      "name": "{{ messages.s2_review_name_2 }}",
+      "content": "{{ messages.s2_review_description_2 }}",
+      "image": "review-2.jpg",
+      "block_template": "system-review"
+    },
+    "review_3": {
+      "title": "{{ messages.s2_review_3 }}",
+      "name": "{{ messages.s2_review_name_3 }}",
+      "content": "{{ messages.s2_review_description_3 }}",
+      "image": "review-3.jpg",
+      "block_template": "system-review"
+    },
+    "about_bg_block": {
+      "title": "{{ messages.s2_about_title }}",
+      "heading": "{{ messages.s2_about_title }}",
+      "description": "{{ messages.s2_about_description }}",
+      "link": "/collection/all",
+      "linktext": "{{ messages.s2_about_button_text }}",
+      "image": "photo-2.jpg",
+      "block_template": "slider_block"
+    },
+    "collection_1": {
+      "title": "{{ messages.s2_index_products }}",
+      "collection": "all",
+      "block_template": "system-collection"
+    },
+    "shop_1": {
+      "title": "{{ messages.s2_shop_1 }}",
+      "heading": "",
+      "description": "",
+      "link": "/page/feedback",
+      "linktext": "{{ messages.s2_shop_1_a }}",
+      "image": "show-1.jpg",
+      "block_template": "slider_block"
+    },
+    "shop_2": {
+      "title": "{{ messages.s2_shop_2 }}",
+      "heading": "",
+      "description": "",
+      "link": "/page/feedback",
+      "linktext": "{{ messages.s2_shop_2_a }}",
+      "image": "show-2.jpg",
+      "block_template": "slider_block"
+    },
+    "shop_3": {
+      "title": "{{ messages.s2_shop_3 }}",
+      "heading": "",
+      "description": "",
+      "link": "/page/feedback",
+      "linktext": "{{ messages.s2_shop_3_a }}",
+      "image": "show-3.jpg",
+      "block_template": "slider_block"
+    }
+  },
+
+  "theme_widgets": {
+    "widget_lists": [{
+      "name": "index",
+      "handle": "index-list",
+      "widgets": [
+        {
+          "widget_type": "promo_handle",
+          "data_handle": "promo"
+        },
+        {
+          "widget_type": "about_handle",
+          "data_handle": "about"
+        },
+        {
+          "widget_type": "reviews_handle",
+          "data_handle": "reviews"
+        },
+        {
+          "widget_type": "about_bg_handle",
+          "data_handle": "about-bg"
+        },
+        {
+          "widget_type": "index-products-handle",
+          "data_handle": "index-products"
+        },
+        {
+          "widget_type": "shops-handle",
+          "data_handle": "shops"
+        }
+      ]
+    }],
+    "widget_types": [
+      {
+        "block_template": "slider_block",
+        "name": "{{ messages.s2_slider }}",
+        "handle": "promo_handle",
+        "type": "block_list_widget_type",
+        "snippet": "promo.liquid"
+      },
+      {
+        "block_template": "slider_block",
+        "name": "{{ messages.s2_about }}",
+        "handle": "about_handle",
+        "type": "block_list_widget_type",
+        "snippet": "index-about-us.liquid"
+      },
+      {
+        "block_template": "system-review",
+        "name": "{{ messages.s2_reviews }}",
+        "handle": "reviews_handle",
+        "type": "block_list_widget_type",
+        "snippet": "index-reviews.liquid"
+      },
+      {
+        "block_template": "slider_block",
+        "name": "{{ messages.s2_about_2 }}",
+        "handle": "about_bg_handle",
+        "type": "block_list_widget_type",
+        "snippet": "index-about-us-2.liquid"
+      },
+      {
+        "block_template": "system-collection",
+        "name": "{{ messages.s2_index_products }}",
+        "handle": "index-products-handle",
+        "type": "block_list_widget_type",
+        "snippet": "index-products.liquid"
+      },
+      {
+        "block_template": "slider_block",
+        "name": "{{ messages.s2_shops }}",
+        "handle": "shops-handle",
+        "type": "block_list_widget_type",
+        "snippet": "index-contacts.liquid"
+      }
+    ]
+  }
+}

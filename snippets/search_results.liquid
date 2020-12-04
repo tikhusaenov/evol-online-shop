@@ -1,0 +1,21 @@
+{% if search.performed? %}
+
+  {% if search.results != empty %}
+    <div class="row is-grid cards-row">
+      {% for product in search.results %}
+        <div class="cell-3 m-b-30 cell-4-m cell-6-sm cell-12-xs">{% include 'product-item' %}</div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="notice notice-warning m-b-50">
+      Ничего не найдено
+    </div>
+  {% endif %}
+
+{% else %}
+  <div class="cell-12">
+    <div class="notice notice-info m-b-50">
+      Введите данные для поиска
+    </div>
+  </div>
+{% endif %}

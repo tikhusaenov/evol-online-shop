@@ -1,0 +1,120 @@
+{% if settings.collection_count.size > 0 %}
+  {% assign collection_count = settings.collection_count %}
+{% else %}
+  {% assign collection_count = 12 %}
+{% endif %}
+
+{% assign collection_on = false %}
+{% assign sort_on = false %}
+{% assign page_size_on = false %}
+{% assign collection_image_on = false %}
+
+{% if settings.collection_filter_on == '1' or settings.collection_filter_on == 'on' %}
+  {% assign collection_on = true %}
+{% endif %}
+
+{% if settings.collection_sort_on == '1' or settings.collection_sort_on == 'on' %}
+  {% assign sort_on = true %}
+{% endif %}
+
+{% if settings.collection_page_size_on == '1' or settings.collection_page_size_on == 'on' %}
+  {% assign page_size_on = true %}
+{% endif %}
+
+{% if collection.current_characteristics.size > 0 or price_min or price_max or collection.current_option_values.size > 0 %}
+  {% assign filter_selected = true %}
+{% endif %}
+
+{% if settings.collection_collection_image_on == '1' or settings.collection_collection_image_on == 'on' %}
+  {% unless collection.image.original_url contains 'no_image' or filter.title.size > 0 %}
+    {% assign collection_image_on = true %}
+    {% capture collection_image_classes %}class="relative collection-preview-big m-b-50" style="background-image: url({{ collection.image | image_url: 1500 }});"{% endcapture %}
+  {% endunless %}
+{% endif %}
+
+{% paginate products by collection_count %}
+
+  <div {{ collection_image_classes }}>
+    {% include 'breadcrumb' %}
+    {% if collection_image_on == true %}
+      {% include 'collection-title' %}
+    {% endif %}
+    
+    {% if collection_image_on == false %}
+      {% include 'collection-title' %}
+    {% endif %}
+  </div>
+   {% include 'collection-sort' %}
+  <div class="collection-products m-b-50">
+    
+    <div class="container">
+      
+      {% assign current_page_num = current_page | times: 1 %}
+      {% unless current_page_num > 1 %}
+        {% if settings.collection_short_description_place == 'before' %}
+          {% if settings.collection_short_description_on == '1' or settings.collection_short_description_on == 'on' %}
+            {% include 'collection-description' with 'short' %}
+          {% endif %}
+        {% endif %}
+
+        {% if settings.collection_description_place == 'before' %}
+          {% if settings.collection_description_on == '1' or settings.collection_description_on == 'on' %}
+            {% include 'collection-description' with 'full' %}
+          {% endif %}
+        {% endif %}
+      {% endunless %}
+
+
+      <div class="row flex-end is-grid" id="to-filter">
+        
+        <div data-closed-filter2 class="forbanner cell-3 cell-12-sm transition text-left p-b-60-sm">
+          
+          {% include 'collection_filters' %} 
+          <div class="banner_block">
+            <img src="https://static-ru.insales.ru/files/1/7958/13082390/original/banner_1_kopia.jpg">
+          </div>
+          
+        </div>
+        <div data-opened-filter2 class="cell-9 cell-12-bilo-cell-9-dobavleno cell-12-sm transition text-left">
+          <div class="row is-grid_1">
+            {% if collection.products.size > 0 %}
+              {% for product in collection.products %}
+                <div class=" cell-3 m-b-30 cell-4-sm cell-6-sm cell-12-xs">{% include 'product-item' %}</div>
+              {% endfor %}
+            {% elsif filter_selected %}
+              <div class="collection-notice text-center cell-12">
+                <div class="notice notice-warning">
+                  {{ messages.collection_filters_is_empty }}
+                </div>
+              </div>
+            {% else %}
+              <div class="collection-notice text-center cell-12">
+                <div class="notice notice-warning">
+                  {{ messages.collection_is_empty }}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          {% include 'pagination' %}
+        </div>
+      </div>
+
+      {% unless current_page_num > 1 %}
+        {% if settings.collection_short_description_place == 'after' %}
+          {% if settings.collection_short_description_on == '1' or settings.collection_short_description_on == 'on' %}
+            {% include 'collection-description' with 'short' %}
+          {% endif %}
+        {% endif %}
+
+        {% if settings.collection_description_place == 'after' %}
+          {% if settings.collection_description_on == '1' or settings.collection_description_on == 'on' %}
+            {% include 'collection-description' with 'full' %}
+          {% endif %}
+        {% endif %}
+      {% endunless %}
+
+    </div>
+  </div>
+
+{% endpaginate %}

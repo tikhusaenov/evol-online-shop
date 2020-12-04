@@ -1,0 +1,32 @@
+<li class="{{ menu_class }}-item menu-item level-{{ node_level }} item-is-{{ link.handle }} {{ current }} {% if show_next_level and drop_menu %}is-drop_anchor{% endif %}" {{ container }}>
+  {% if show_icon %}
+    <span class="{{ menu_class }}-icon menu-icon level-{{ node_level }}"></span>
+  {% endif %}
+  {% if data_tabs and show_next_level %}
+    {% assign anchor = 'data-tab-anchor="' | append: link.handle | append: '"' %}
+    {% assign target = 'data-tab-target="' | append: link.handle | append: '"' %}
+    {% else %}
+    {% assign anchor = '' %}
+    {% assign target = '' %}
+  {% endif %}
+
+  <a href="{{ link.url }}" class="{{ menu_class }}-link menu-link level-{{ node_level }}" {% if data_tabs_link %}{{ anchor }}{% endif %}>
+    {{ link.title }}
+    {% if show_count %}
+    <span class="{{ menu_class }}-products_count">
+      {{ link.products_count }}
+    </span>
+    {% endif %}
+  </a>
+
+  {% if show_next_level %}
+    {% unless hide_marker %}
+      <button class="{{ menu_class }}-marker menu-marker menu-marker level-{{ node_level }} {% if link.current? %}is-button-active{% endif %}" type="button" {{ anchor }} {% if link.current? %}data-tab-active{% endif %}></button>
+    {% endunless %}
+
+    <ul class="{{ menu_class }} menu level-{{ node_level | plus: 1 }} {% if show_next_level and drop_menu %}is-drop_target{% endif %}" {{ target }}>
+
+    {% else %}
+    </li>
+
+{% endif %}

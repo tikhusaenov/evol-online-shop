@@ -1,0 +1,53 @@
+{% content_for 'title' %}
+	История заказов
+{% end_content_for %}
+<div>
+	{% if orders == empty %}
+		<p>Вы не сделали ещё ни одного заказа</p>
+	{% else %}
+
+	<table class='co-table co-table--to_card'>
+		<tr class='co-table-row co-table-row--head is-grid'>
+			<td class='co-table-cell co-table-cell--head'>Дата оформления</td>
+			<td class='co-table-cell co-table-cell--head'>Номер заказа</td>
+			<td class='co-table-cell co-table-cell--head'>Статус</td>
+			<td class='co-table-cell co-table-cell--head co-table-cell--hide@sm'>Оплата</td>
+			<td class='co-table-cell co-table-cell--head co-table-cell--hide@sm'>Сумма заказа</td>
+		</tr>
+		{% for order in orders %}
+			<tr class='co-table-row co-table-row--body co-table-row--striped is-grid'>
+				<td class='co-table-cell co-table-cell--body' data-title='Дата оформления'>{{ order.creation_date | date: '%d.%m.%Y %H:%M' }}</td>
+				<td class='co-table-cell co-table-cell--body' data-title='Номер заказа'>
+					<a class="co-link" href="{{ order.url }}">{{ order.number }}</a>
+				</td>
+				<td class='co-table-cell co-table-cell--body' data-title='Статус'>{{ order.custom_status_title }}</td>
+				<td class='co-table-cell co-table-cell--body co-table-cell--hide@sm' data-title='Оплата'>
+					{% if order.paid? %}
+						Оплачен
+					{% else %}
+						Не оплачен
+					{% endif %}
+				</td>
+				<td class='co-table-cell co-table-cell--body co-table-cell--hide@sm' data-title='Сумма заказа'>{{ order.total_price | money }}</td>
+			</tr>
+		{% endfor %}
+		<tr class='co-table-row co-table-row--foot is-grid'>
+			<td class='co-table-cell co-table-cell--foot' colspan='5'>
+			<div class='co-order_history-total_title'>Сумма выполненных заказов:</div>
+			<div class='co-order_history-total_sum co-price'>{{ client.turnover | money }}</div>
+			</td>
+		</tr>
+	</table>
+
+	{% endif %}
+	<script type="text/javascript" src="https://pickpoint.ru/select/postamat.js" charset="utf-8"></script>
+    <script type="text/javascript">
+    function my_function(result){
+      // устанавливаем в скрытое поле ID терминала
+      document.getElementById('pickpoint_id').value=result['id'];
+      
+      // показываем пользователю название точки и адрес доствки
+      document.getElementById('address').innerHTML=result['name']+'<br />'+result['address'];
+    }
+  </script>
+</div>

@@ -1,0 +1,34 @@
+{% if block_lists.advantage.blocks.size > 0 %}
+
+<div class="container">
+  <div class="advantage">
+    <div class="advantage-title">
+      Преимущества
+    </div>
+    <div class="row">
+
+      {% for block in block_lists.advantage.blocks %}
+      {% assign tag = 'div' %}
+      {% assign attr = '' %}
+      {% if block.link.size > 0 %}
+        {% assign tag = 'a' %}
+        {% assign attr = 'href="' | append: block.link | append: '"' %}
+      {% endif %}
+      <div class="cell-fifth">
+        <{{ tag }} {{ attr }} class="advantage-item">
+          <div class="advantage-icon row flex-bottom flex-center">
+            <img src="http://fakeimg.pl/300x300/d5d5d5/" alt="">
+            <!-- <img src="{{ block.image }}" alt=""> -->
+          </div>
+          <div class="advantage-text">
+            {{ block.title }}
+          </div>
+        </{{ tag }}>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+{% endif %}

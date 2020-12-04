@@ -1,0 +1,35 @@
+<div class="discounts-wrap">
+  <label for="discounts-coupon" class="discounts-toggle">
+    <span class="discounts-percent">%</span> <span class="discounts-marker">промокод</span>
+  </label>
+  <div class="inpt-group">
+    <input type="text" name="cart[coupon]" id="discounts-coupon" class="discounts-coupon inpt-control inpt" placeholder="Введите промокод" {% if cart.invalid_coupon? %}value=""{% endif %}>
+    <button class="discounts-submit
+    bttn-transparent
+    inpt-group-addon
+    is-discounts"
+    data-coupon-submit
+    />Применить</button>
+  </div>
+</div>
+
+{% if cart.invalid_coupon? %}
+<div class="discounts-notice notice is-warning">
+  {{ cart.coupon_error }}
+</div>
+{% endif %}
+<div class="discounts-rows" data-cartman-discounts>
+  {% if cart.discounts.size > 0 %}
+    {% for discount in cart.discounts %}
+    <div class="row flex-between flex-middle discounts-row notice is-info">
+      <span class="cart_sidebar-total_label">{{ discount.description }}:</span> <span class="cart_sidebar-total">
+        {% if discount.percent %}
+        - {{ discount.percent | round: 0 }} %
+        {% else %}
+        - {{ discount.amount | money }}
+        {% endif %}
+      </span>
+    </div>
+    {% endfor %}
+  {% endif %}
+</div>

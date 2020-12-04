@@ -1,0 +1,180 @@
+<div class="product-info pallette_1 no_bg">
+  <form class="" action="{{ cart_url }}" method="post" data-product-id="{{ product.id }}" data-recently-view="{{ product.id }}" data-product-gallery=".js-product-gallery-main">
+    <sup class="product-sku" data-product-sku>
+      </sup>
+    <h1 class="product-title h2-like m-t-0 m-b-10">
+      {{ product.title }}
+      
+    </h1>
+    
+      
+    
+    {% if product.is_bundle %}
+      <div class="bundle-component m-b-30 m-b-20-sm">
+        {% assign product_economy = 0 %}
+        {% for comp in product.bundle_components %}
+          <div class="bundle-point {% unless forloop.last %}b-bottom{% endunless %} p-t-10 p-b-10">
+            <div class="row is-grid flex-middle">
+              <div class="cell-1 cell-3-m">
+                <div class="square">
+                  {% if comp.variant.first_image.large_url contains '/images/no_image_large.jpg' %}
+                      <img class="transition" src="{{ 'no_image.png' | asset_url }}" />
+                  {% else %}
+                      <img class="transition" src="{{ comp.variant.first_image.large_url }}" />
+                  {% endif %}
+                </div>
+              </div>
+              <a href="{{ comp.product.url }}" class="cell-7 cell-12-m flex-last-m m-t-20-m"><span class="opacity-05">{{ comp.quantity | replace: '.0', '' }} x </span>{{ comp.product.title }} {% if comp.variant.title.size > 0 %}({{ comp.variant.title }}){% endif %}</a>
+              <div class="cell-4 cell-9-m text-right text-left-m">{% if comp.is_free == true %}<span class="bundle-is-free">Бесплатно</span> <span class="line-through opacity-05">{{ comp.variant.price | times: comp.quantity | money }}</span>{% else %}{{ comp.variant.price | times: comp.quantity | money }}{% endif %}</div>
+            </div>
+          </div>
+
+          {% assign product_economy = product_economy | plus: comp.product.price | minus: product.price %}
+        {% endfor %}
+      </div>
+
+      {% if product.bundle_discount > 0 %}
+      <div class="fw-700 m-l-100">
+        {{ messages.prod_economy }}: {{ product.bundle_discount | money }}
+      </div>
+      {% endif %}
+
+    {% else %}
+    <div data-product-available="" class="product-available m-b-10"></div>
+    {% endif %}
+
+    <div class="product-variants m-b-10">
+
+      {% if product.show_variants? %}
+        <select class="hide" name="variant_id" data-product-variants>
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+          {% endfor %}
+        </select>
+      {% else %}
+        <input type="hidden" name="variant_id" value="{{ product.variants.first.id }}" >
+      {% endif %}
+
+    </div>
+   
+
+     {% if product.properties.size > 0 %}
+      <div class="product-props m-l-100 m-b-20">
+        {% for property in product.properties %}
+          <div class="property m-t-5">
+            {% if property.name != 'Бестселлер' and property.name != 'Распродажа' and property.name != 'Новинка' %}
+              <div id="left">
+                
+                  <span>{{ property.title }}</span>
+               
+              </div>
+              <div id="right">
+                  {% for characteristic in property.characteristics %}
+                    {{ characteristic.title }}
+                    {% unless forloop.last %},{% endunless %}
+                    
+                  {% endfor %} 
+              </div>
+             {% endif %}
+          </div>
+        {% endfor %}
+        
+       </div>
+    {% endif %}
+    <div class="editor_1">
+        {{ product.description}}
+
+      </div>
+      <div id="button_ed">
+        <a href="#editor" class="button_desc">
+          <span>Полное описание</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+        </a>
+      </div>
+
+    <div class="product-prices m-t-10 m-b-10">
+
+      <div class="inline-middle price_h h2-like">
+
+        <span class="m-l-100">Цена:</span>
+        <span class="m-l-20 price_num c_special_2_color">{{ product.price | ceil |  append: '&nbsp' | append: '₽' }}</span>
+      </div>
+      &nbsp;
+      {% if product.old_price > product.price %}
+      <div class="inline-middle line-through h2-like">
+        <span>{{ product.old_price | ceil | append: '&nbsp' | append: '₽' }}</span>
+      </div>
+      {% endif %}
+    </div>
+
+    
+
+      <div class="nums_tov">
+        <div class="kolvo">
+        <span class="black">Количество :</span>
+        {% include "quantity" %}
+        </div>
+        <button class="favsadd" type="button" data-favorites-trigger="{{ product.id }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.5 10c-2.483 0-4.5 2.015-4.5 4.5s2.017 4.5 4.5 4.5 4.5-2.015 4.5-4.5-2.017-4.5-4.5-4.5zm2.5 5h-2v2h-1v-2h-2v-1h2v-2h1v2h2v1zm-6.527 4.593c-1.108 1.086-2.275 2.219-3.473 3.407-6.43-6.381-12-11.147-12-15.808 0-6.769 8.852-8.346 12-2.944 3.125-5.362 12-3.848 12 2.944 0 .746-.156 1.496-.423 2.253-1.116-.902-2.534-1.445-4.077-1.445-3.584 0-6.5 2.916-6.5 6.5 0 2.063.97 3.901 2.473 5.093z"/></svg>
+          <span>В избранное</span>
+        </button>
+      </div>
+      <div class="buttons_buy">
+        <button type="submit" data-item-add class="button_to_cart in-product js-basket " custom-popup-link="dynamic_basket">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm1.336-5l1.977-7h-16.813l2.938 7h11.898zm4.969-10l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"/></svg>
+          {{ messages.button_to_cart }}
+        </button> 
+        {% if account.quick_checkout.enabled %}
+          <button type="button" class="button_one_click" data-quick-checkout="[data-product-id='{{ product.id }}']">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11 9l10 7.675-4.236.71 2.659 5.422-2.44 1.193-2.675-5.474-3.308 2.863v-12.389zm0-5c-2.209 0-4 1.791-4 4 0 1.477.81 2.752 2 3.445v-1.225c-.609-.55-1-1.337-1-2.22 0-1.654 1.346-3 3-3s3 1.346 3 3c0 .246-.038.481-.094.709l.842.646c.154-.424.252-.877.252-1.355 0-2.209-1.791-4-4-4zm-2 9.65c-2.327-.826-4-3.044-4-5.65 0-3.309 2.691-6 6-6s6 2.691 6 6c0 .939-.223 1.824-.609 2.617l1.617 1.241c.631-1.145.992-2.459.992-3.858 0-4.418-3.581-8-8-8-4.418 0-8 3.582-8 8 0 3.727 2.551 6.849 6 7.738v-2.088z"/></svg>
+            <span>{{ messages.button_fast }}</span>
+          </button>
+        {% endif %}
+      </div>
+      <div class="info_menu">
+        <input class="hide" id="hd-1" type="checkbox" >
+        <label for="hd-1">
+        Как оплатить заказ?
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+      </label>
+        <div>
+          Оплачивайте покупки в EVOL по карте, с помощью виртуальных кошельков или наличными курьеру при получении.<br>
+          На данный момент доступно 7 различных способов оплаты, каждый из которых работает эффективно и без перебоев.
+        </div>
+        <input class="hide" id="hd-2" type="checkbox" >
+        <label for="hd-2">
+          Какие есть способы доставки?
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+        </label>
+        <div>
+          EVOL доставляет заказы по всей России. Вы можете выбрать СДЭК, Pickpoint или Почту России.<br>
+          Если Вы проживаете в Москве, воспользуйтесь нашей собственной службой доставки и получите товары уже завтра. Наши курьеры работают в пределах МКАД.
+        </div>
+        <input class="hide" id="hd-3" type="checkbox" >
+        <label for="hd-3">
+        Безопасно ли покупать в EVOL?
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+      </label>
+        <div>
+          Абсолютно!<br> 
+          <ul>
+          <li>Информация о заказе не находится в свободном доступе и не предоставляется третьим лицам.</li>
+          <li>Упаковка на 100% обезличена! Даже зная содержимое заказа, клиент не сможет рассмотреть товары сквозь чёрную упаковку, на которой отсутствуют какие-либо надписи.</li>
+          <li>Курьеры не владеют информацией о товаре и покупателе.</li></div>
+      </div>
+    
+  </form>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript">
+ $(document).ready(function(){
+    $("#button_ed").on("click","a", function (event) {
+        event.preventDefault();
+        var id  = $(this).attr('href'),
+            top = $(id).offset().top;
+        $('body,html').animate({scrollTop: top-200}, 1300);
+    });
+});
+</script>
+
+   

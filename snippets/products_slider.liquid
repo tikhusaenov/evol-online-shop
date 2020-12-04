@@ -1,0 +1,71 @@
+{% comment %}
+  Все итерации должны пройти, чтобы html теги закрылись по значению forloop.
+  Чтобы скрыть товар нужно передать hide_product = true
+  {% for product in product.related_products %}
+    {% assign hide_product = false %}
+
+    {% if product.is_bundle %}
+      {% assign hide_product = true %}
+    {% endif %}
+
+    {% include "products_slider", products_title: messages.related_products, products_prefix: 'is-related', card_prefix: 'in-product', hide_product: hide_product  %}
+  {% endfor %}
+
+  За инициализацию слайдера отвечает js-products-slider
+{% endcomment %}
+
+{% unless products_prefix %}
+  {% assign products_prefix = 'is-default' %}
+{% endunless %}
+
+{% unless card_prefix %}
+  {% assign card_prefix = 'is-default' %}
+{% endunless %}
+
+{% if  forloop.first %}
+<div class="js-products-slider products products-{{ products_prefix }}">
+
+  <div class="container">
+
+    {% if products_title %}
+      <div class="h2-like fw-700 text-uppercase text-center m-t-0 m-b-40 m-b-20-m">{{ products_title }}</div>
+      <div class="decor-arrow m-b-50"></div>
+    {% endif %}
+
+    <div class="products-slider-wrapper relative">
+      <div class="products-slider swiper-container products-slider-{{ products_prefix }} m-l-80 m-r-80 m-l-30-s m-r-30-s">
+        <div class="swiper-wrapper">
+{% endif %}
+
+
+<!-- тело цикла -->
+  {% unless hide_product %}
+    <div class="swiper-slide slide-{{ products_prefix }}">
+      {% include 'product-item' %}
+    </div>
+  {% endunless %}
+<!-- /тело цикла -->
+
+
+{% if forloop.last %}
+        </div><!-- swiper-wrapper -->
+      </div><!-- products-slider -->
+
+      <div class="products-control">
+        <div class="review-slider-prev swiper-button-prev">{% include 'svg' with 'review-arrow-left' %}</div>
+        <div class="review-slider-prev swiper-button-next">{% include 'svg' with 'review-arrow-right' %}</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+{% assign products_array = nil %}
+{% assign products_prefix = nil %}
+{% assign card_prefix = nil %}
+{% assign products_title = nil %}
+{% assign hide_product = nil %}
+{% assign first = nil %}
+{% assign last = nil %}

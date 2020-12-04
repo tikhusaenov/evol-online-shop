@@ -1,0 +1,12 @@
+{% comment %}
+  {% include "snippet", snippet_name: "quick_view" %}
+{% endcomment %}
+{% capture snippet_content %}{% include snippet_name %}{% endcapture %}
+{% unless snippet_content contains "Liquid template error" %}
+  {{ snippet_content }}
+  {% else %}
+  <script type="text/javascript">
+    console.warn('Сниппет {{ snippet_name }} отсутствует');
+  </script>
+{% endunless %}
+{% assign snippet_name = null %}

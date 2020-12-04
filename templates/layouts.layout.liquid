@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ 
+  {% include "head" %}
+
+  {% include "styles" %}
+</head>
+
+{% assign is_index = 'is-index-page' %}
+
+{% unless template == 'index' %}
+  {% assign is_index = 'not-index-page' %}
+{% endunless %}
+
+<body class="template-is-{{ template | replace: '.', '_' }} {{ is_index }}">
+  {% include "header" %}
+
+  {{ content_for_layout }}
+
+  {% include "instagram" %}
+
+  {% include "footer" %}
+
+  {% include "scripts" %}
+
+  {% include "scroll_top" %}
+  {% include "no_js_alert" %}
+  {% include "microdata" %}
+  {% include "special" %}
+  <!-- Автор темы: reviakin.andrew@gmail.com -->
+</body>
+</html>

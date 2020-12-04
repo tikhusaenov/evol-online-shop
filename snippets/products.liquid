@@ -1,0 +1,57 @@
+{% if products_array.size > 0 %}
+
+{% unless products_prefix %}
+  {% assign products_prefix = 'is-default' %}
+{% endunless %}
+
+{% unless card_prefix %}
+  {% assign card_prefix = 'is-default' %}
+{% endunless %}
+
+<div class="js-products-slider products products-{{ products_prefix }}">
+
+  <div class="container">
+
+    {% if products_title %}
+    <h3 class="products-title">
+      {{ products_title }}
+    </h3>
+    {% endif %}
+
+    <div class="products-slider-wrapper">
+
+      <div class="products-slider swiper-container products-slider-{{ products_prefix }}">
+        <div class="swiper-wrapper">
+
+        {% for product in products_array %}
+        <!-- тело цикла -->
+        <div class="swiper-slide slide-{{ products_prefix }}">
+          {% include "card", card_prefix: card_prefix %}
+        </div>
+        <!-- /тело цикла -->
+        {% endfor %}
+
+        </div><!-- swiper-wrapper -->
+      </div><!-- swiper-container -->
+
+      {% comment %}
+        Навигация (должна быть внутри .js-products-slider)
+      {% endcomment %}
+      <div class="products-control">
+        <div class="swiper-button-prev swiper-button-black products-control-prev">
+        </div>
+        <div class="swiper-button-next swiper-button-black products-control-next">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+
+{% assign products_array = nil %}
+{% assign products_prefix = nil %}
+{% assign card_prefix = nil %}
+{% assign products_title = nil %}

@@ -1,0 +1,60 @@
+{% if data.blocks.size > 0 %}
+	<div class="index-reviews pallette_2 p-t-80 p-b-100 p-t-50-s p-b-50-s">
+		<div class="container text-center">
+			<div class="h2-like fw-700 text-uppercase m-t-0 m-b-40 m-b-20-s">{{ messages.s2_reviews }}</div>
+			<div class="decor-arrow m-b-40 m-b-20-s"></div>
+
+			<div class="review-slider-wrapper">
+				<div class="js-index-reviews swiper-container">
+					<div class="swiper-wrapper">
+						{% for review in data.blocks %}
+							{% if review.hide_image == false %}
+								{% if review.image_position == 'top' %}
+									{% assign has_img = 'top' %}
+									{% assign review_classes = 'cell-12 text-center' %}
+								{% else %}
+									{% assign has_img = 'left' %}
+									{% assign review_classes = 'cell-9 cell-12-s text-left' %}
+								{% endif %}
+							{% endif %}
+
+							<div class="swiper-slide">
+								<div class="review-slide">
+									<div class="row flex-center">
+										{% if has_img == 'left' %}
+											<div class="cell-3 cell-12-s m-b-20-s">
+												<img class="review-img-left" src="{{ review.image }}" />
+											</div>
+										{% endif %}
+
+										<div class="{{ review_classes }}">
+											{% if has_img == 'top' %}
+												<div class="m-b-20">
+													<img class="review-img-top" src="{{ review.image }}" />
+												</div>
+											{% endif %}
+											{% if review.name.size > 0 %}
+												<div class="review-slide-title h3-like m-b-25">{{ review.name | editable }}</div>
+											{% endif %}
+											{% if review.content.size > 0 %}
+												<div class="review-slide-text">{{ review.content | editable }}</div>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+
+							{% assign has_img = '' %}
+							{% assign review_classes = '' %}
+						{% endfor %}
+					</div>
+
+					{% if data.blocks.size > 1 %}
+						<div class="review-slider-prev swiper-button-prev">{% include 'svg' with 'review-arrow-left' %}</div>
+		        <div class="review-slider-next swiper-button-next">{% include 'svg' with 'review-arrow-right' %}</div>
+	        {% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}

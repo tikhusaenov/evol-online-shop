@@ -1,0 +1,18 @@
+{% assign option_active = '' %}
+{% assign property_active = '' %}
+
+{% assign active_attr = active_attr | default: 'data-active-filter' %}
+
+{% if collection.current_option_values.size > 0 %}
+  {% assign filters_active = true %}
+{% endif %}
+
+{% assign values = option.values | map: 'selected' %}
+{% assign values = values | join: '' | replace: 'false', '' %}
+
+{% if values contains 'true' %}
+  {% assign option_active = active_attr %}
+{% endif %}
+
+{% assign active_attr = nil %}
+{% assign values = nil %}

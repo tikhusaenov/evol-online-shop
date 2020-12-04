@@ -1,0 +1,133 @@
+<header class="pallette_1 header_shadow transition ">
+  <div class="container conheader">
+    <div class="row is-grid flex-middle flex-between">
+      <div class="cell-">
+        <ul class="no-list-style no-pad no-marg">
+          <li class="inline-middle m-r-20 m-r-10-sm">
+            <a href="#" class="js-open-main-menu" custom-popup-link="mobile-menu"> 
+              <div class="burger">
+                <div></div>
+              </div>
+            </a> 
+          </li>
+
+          {% unless settings.header_logo_width == 'on' or settings.header_logo_width == '1' %}
+            <li class="header-logo-place inline-middle m-r-30 m-r-0-lg">
+              <a href="/" title="{{ account.title }}">
+                {% include 'logotypes' with 'header' %}
+              </a>
+            </li>
+          {% endunless %}
+
+          {% if linklists[settings.header_menu_permalink].links.size > 0 %}
+              <li class="inline-middle m-r-30 hide-lg {% if link.current? %}underline{% endif %}"><a class = "link1" href="/collection/all">
+                КАТАЛОГ
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+              </a>
+                
+                  <div class="header-menu-drop absolute p-t-20">
+                    <table class="hr no-list-style reg_bg">
+                      <tr>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/analnye-igrushki">Анальные игрушки</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/seks-tovary-dlya-zhenschin">Секс-товары для женщин</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/seks-tovary-dlya-muzhchin">Секс-товары для мужчин</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/bdsm-sado-mazo-tovary">BDSM, садо-мазо товары</a></td>
+                      </tr>
+                      <tr>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/smazki-lubrikanty">Смазки, лубриканты</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/vibratory">Вибраторы</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/falloimitatory">Фаллоимитаторы</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/strapony-falloprotezy">Страпоны, фаллопротезы</a></td>
+                      </tr>
+                      <tr>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/kosmetika-s-feromonami">Косметика с феромонами</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/priyatnye-melochi">Приятные мелочи</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/eroticheskaya-odezhda">Эротическая одежда</a></td>
+                        <td class="m-t-10 m-b-10 "><a href="/collection/seks-mebel-i-kacheli">Секс-мебель и качели</a></td>
+                      </tr>
+                    </table>
+                   
+
+                  </div>
+              
+              </li>
+              <li class="inline-middle m-r-30 hide-lg {% if link.current? %}underline{% endif %}"><a class = "link1" href="/page/info">ИНФОРМАЦИЯ</a></li>
+              <li class="inline-middle m-r-30 hide-lg {% if link.current? %}underline{% endif %}"><a class = "link1" href="/blogs/blog">ТУТ ИНТЕРЕСНО</a></li>
+              <li class="inline-middle m-r-30 hide-lg {% if link.current? %}underline{% endif %}"><a class = "link1" href="/page/garantii-polzovatelyam">ГАРАНТИИ</a></li>
+              <li class="inline-middle  m-r-30 hide-lg {% if link.current? %}underline{% endif %}">
+                <a class = "link1" href="/page/wishlist">
+                  ИЗБРАННОЕ
+                </a>
+              </li>
+
+
+            
+          {% endif %}
+        </ul>
+      </div>
+      <div class="cell-">
+        <div class="header-menu-right row flex-middle">
+          <a href="/page/wishlist" class="favs_mobile">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 24 24"><path d="M17.516 3c2.382 0 4.487 1.564 4.487 4.712 0 4.963-6.528 8.297-10.003 11.935-3.475-3.638-10.002-6.971-10.002-11.934 0-3.055 2.008-4.713 4.487-4.713 3.18 0 4.846 3.644 5.515 5.312.667-1.666 2.333-5.312 5.516-5.312zm0-2c-2.174 0-4.346 1.062-5.516 3.419-1.17-2.357-3.342-3.419-5.515-3.419-3.403 0-6.484 2.39-6.484 6.689 0 7.27 9.903 10.938 11.999 15.311 2.096-4.373 12-8.041 12-15.311 0-4.586-3.414-6.689-6.484-6.689z"/></svg>
+            <span class="favs-counter" data-favorites-counter></span>
+          </a>
+          {% if settings.header_search_on == '1' or settings.header_search_on == 'on' %}
+            <div>
+              <a class="search_widget-submit hover-opacity" href="#" custom-popup-link="search-form">
+                <span class="inline-middle">{% include 'svg' with 'icon_search' %}</span>
+                <span class="fontsearch inline-middle hide-lg">&nbsp; {{ messages.t_search }}</span>
+              </a>
+            </div>
+          {% endif  %}
+          
+
+          {% unless header == 'no-basket' %}
+            <div class="m-l-30 m-l-15-m flex-last-m">
+              <a class="js-basket search_widget-submit hover-opacity" href="#" custom-popup-link="dynamic_basket">
+                <span class="inline-middle">{% include 'svg' with 'icon_cart' %}</span>
+                <span class="fontsearch inline-middle hide-lg">&nbsp; {{ messages.t_basket }}</span>
+                <span class="inline-middle hide-m" data-cartman-positions-count></span>
+              </a>
+            </div>
+          {% endunless %}
+
+          {% if settings.header_cabinet_on == '1' or settings.header_cabinet_on == 'on' %}
+          	{% if account.enable_clients? %}
+              <div class="m-l-30 m-l-15-m">
+                <a class="fontsearch login-link p-l-30 p-l-0-m" href="/client_account/login">
+                  <span class="inline-middle hide show-inline-block-m">{% include 'svg' with 'icon_account' %}</span>
+                  <span class="hide-m">{{ messages.t_account }}</span>
+                </a>
+              </div>
+         	{% endif %}
+          {% endif %}
+        </div>
+      </div>
+
+      {% if settings.header_logo_width == 'on' or settings.header_logo_width == '1' %}
+        <div class="cell-12">
+          <div class="b-top text-center p-t-20 m-t-20 m-t-10-xs m-b-10-xs">
+            <a href="/">
+              {% if settings.logotype_type == 'image' %}
+                <img style="margin: auto;" class="show" src="{{ 'logotype_1.png' | asset_url }}" />
+              {% else %}
+                <span style="font-family: '{{ settings.logotype_font_family }}'; font-size: {{ settings.logotype_font_size }};">{{ account.title }}</span>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+      {% endif %}
+      
+      
+    </div>
+  </div>
+  
+</header>
+<script type="text/javascript">
+      window.addEventListener("scroll",function(){
+        var header = document.querySelector("header");
+        header.classList.toggle("sticky", window.scrollY > 0);
+      })
+</script>
+<div data-option-variant class="hide">{{ settings.product_variants }}</div>

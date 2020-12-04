@@ -1,0 +1,26 @@
+<form action="{{ cart_url }}" method="post" data-cart-form>
+  <input type="hidden" name="_method" value="put">
+  <input type="hidden" name="make_order" value="">
+  <div class="cart-items">
+    {% for item in cart.items %}
+      {% include "cart_item" %}
+    {% endfor %}
+  </div>
+
+    <div class="row flex-middle cart-footer">
+      <div class="cell-5">
+        {% include "discounts" %}
+      </div>
+      <div class="cell-7">
+        <div class="row cart-order flex-middle">
+          <div class="cart-total-capture">Итоговый заказ: </div>
+          <div class="cart-total" data-cartman-total-price>
+            {{ cart.total_price | money }}
+          </div>
+          <button type="submit"  class="cart-submit bttn-second in-cart" data-cart-submit>оформить заказ</button>
+        </div>
+      </div>
+
+    </div>
+
+</form>

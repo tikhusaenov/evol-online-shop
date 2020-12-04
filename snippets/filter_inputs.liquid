@@ -1,0 +1,179 @@
+{% comment %}
+  characteristic
+{% endcomment %}
+{% if filter_type == 'characteristics' and input_type == 'checkbox' %}
+<ul class="filter-items-list is-characteristics is-checkbox">
+
+  {% for characteristic in property.characteristics %}    
+    {% assign is_checked = characteristic.current? | default: '' | replace: 'true', 'checked' %}
+
+    <li class="filter-item">
+      <label class="chkbx-label">
+        <input class="chkbx" type="checkbox" value="{{ characteristic.id }}"
+        {{ is_checked }} name="characteristics[]"/>
+        <span class="chkbx-control">
+          {% include 'svg' with 'checkbox' %}
+          {% include 'svg' with 'checkbox-checked' %}
+        </span>
+
+        <span>{{ characteristic.title }}</span>
+      </label>
+    </li>
+  {% endfor %}
+
+</ul>
+{% endif %}
+
+{% if filter_type == 'characteristics' and input_type == 'span' %}
+<ul class="filter-items-list is-characteristics is-span">
+
+  {% for characteristic in property.characteristics %}
+    {% assign is_checked = characteristic.current? | default: '' | replace: 'true', 'checked' %}
+
+    <li class="filter-item">
+      <label class="filter-span">
+        <input type="checkbox" value="{{ characteristic.id }}"
+        {{ is_checked }} hidden name="characteristics[]"/>
+        <span class="filter-span-control">{{ characteristic.title }}</span>
+      </label>
+    </li>
+  {% endfor %}
+
+</ul>
+{% endif %}
+
+{% if filter_type == 'characteristics' and input_type == 'color' %}
+<ul class="filter-items-list is-characteristics is-color">
+
+  {% for characteristic in property.characteristics %}
+  {% assign is_checked = characteristic.current? | default: '' | replace: 'true', 'checked' %}
+
+  {% assign characteristic_name = characteristic.title | downcase %}
+  {% assign color_image = false %}
+  {% assign color_hex = false %}
+  {% for block in block_lists.filter-colors.blocks %}
+    {% assign block_title = block.title | downcase %}
+    {% if characteristic_name == block_title %}
+      {% assign color_image = block.image %}
+      {% assign color_hex = block.hex %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+    <li class="filter-item">
+      <label class="color-label">
+        <input hidden type="checkbox" value="{{ characteristic.id }}"
+        {{ is_checked }} name="characteristics[]"/>
+        {% assign bg_hex = '' %}
+        {% if color_hex and color_hex != '' %}
+          {% assign bg_hex = 'style="background:'| append: color_hex | append: '"' %}
+        {% endif %}
+        <span title="{{ characteristic.title }}" class="filter-color" {{ bg_hex }}>
+          {% if bg_hex == '' %}
+          {% if color_image %}
+          <img src="{{ color_image }}" alt="">
+          {% else %}
+          <img src="{{ 'noimage.png' | asset_url }}" alt="">
+          {% endif %}
+          {% endif %}
+        </span>
+      </label>
+    </li>
+  {% endfor %}
+
+</ul>
+{% endif %}
+
+{% comment %}
+  Свойства
+{% endcomment %}
+
+{% if filter_type == 'options' and input_type == 'checkbox' %}
+<ul class="filter-items-list is-options is-checkbox">
+
+  {% for value in option.values %}
+  {% assign is_checked = value.selected | default: '' | replace: 'true', 'checked' %}
+    
+    <li class="filter-item">
+      <label class="chkbx-label">
+        <input class="chkbx" type="checkbox" value="{{ value.id }}"
+        {{ is_checked }} name="options[{{ option.id }}][]"/>
+        <span class="chkbx-control">
+          {% include 'svg' with 'checkbox' %}
+          {% include 'svg' with 'checkbox-checked' %}
+        </span>
+
+        <span>{{ value.title }}</span>
+      </label>
+    </li>
+  {% endfor %}
+
+</ul>
+{% endif %}
+
+{% if filter_type == 'options' and input_type == 'span' %}
+<ul class="filter-items-list is-options is-span">
+
+  {% for value in option.values %}
+  {% assign is_checked = value.selected | default: '' | replace: 'true', 'checked' %}
+
+    <li class="filter-item">
+      <label class="filter-span">
+        <input type="checkbox" value="{{ value.id }}"
+        {{ is_checked }} hidden name="options[{{ option.id }}][]"/>
+        <span class="filter-span-control">{{ value.title }}</span>
+      </label>
+    </li>
+  {% endfor %}
+
+</ul>
+{% endif %}
+
+
+
+{% if filter_type == 'options' and input_type == 'color' %}
+<ul class="filter-items-list is-options is-color">
+
+  {% for value in option.values %}
+  {% assign is_checked = value.selected | default: '' | replace: 'true', 'checked' %}
+
+  {% assign value_name = value.title | downcase %}
+  {% assign color_image = false %}
+  {% assign color_hex = false %}
+  {% for block in block_lists.filter-colors.blocks %}
+    {% assign block_title = block.title | downcase %}
+    {% if value_name == block_title %}
+      {% assign color_image = block.image %}
+      {% assign color_hex = block.hex %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+    <li class="filter-item">
+      <label class="color-label">
+        <input hidden type="checkbox" value="{{ value.id }}"
+        {{ is_checked }} name="options[{{ option.id }}][]"/>
+        {% assign bg_hex = '' %}
+        {% if color_hex and color_hex != ''  %}
+          {% assign bg_hex = 'style="background:'| append: color_hex | append: '"' %}
+        {% endif %}
+        <span title="{{ value.title }}" class="filter-color" {{ bg_hex }}>
+          {% if bg_hex == '' %}
+          {% if color_image %}
+          <img src="{{ color_image }}" alt="">
+          {% else %}
+          <img src="{{ 'noimage.png' | asset_url }}" alt="">
+          {% endif %}
+          {% endif %}
+        </span>
+      </label>
+    </li>
+  {% endfor %}
+
+</ul>
+{% endif %}
+
+
+
+{% assign filter_type = nil %}
+{% assign input_type = nil %}

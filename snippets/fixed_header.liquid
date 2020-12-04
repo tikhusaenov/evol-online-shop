@@ -1,0 +1,23 @@
+<div class="fixed_header js-fixed_header">
+  <div class="container">
+    <div class="row flex-middle">
+      <div class="cell-3">
+        <a href="/" class="logotype-link">
+          logotype
+        </a>
+      </div>
+      <div class="cell-9 text-right">
+        <div class="favorites-widget">
+          <a href="#" class="favorites-widget-link">
+            Счетчик избранного: <span data-favorites-counter></span>
+          </a>
+        </div>
+        <div class="cart-widget">
+          <a href="/cart_items" class="cart-widget-link">
+            {{ messages.t_basket }} <span data-cartman-items-count>{% if cart.items_count > 0 %}({{ cart.items_count }}){% endif %}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

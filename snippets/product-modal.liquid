@@ -1,0 +1,42 @@
+<div id="product-modal" class="product-modal modal-hide feedback-modal mfp-with-anim"><div class="prod-content"></div></div>
+
+<script type="text/javascript">
+	$(document).on("click", ".js-modal-product", function(event) {
+	  event.preventDefault();
+
+	  var thisEl = $(this);
+	  var dataUrl = thisEl.attr('data-url');
+
+	  $('#product-modal .prod-content').load(dataUrl + ' [data-prod]', function(){
+	    updateProduct();
+	    updateTabs();
+
+	    $.fancybox.open({
+	      src: thisEl.attr("href"),
+	      type: "inline"
+	    });
+	  });
+	});  
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

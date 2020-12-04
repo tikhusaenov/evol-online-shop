@@ -1,0 +1,125 @@
+{% if blog.comments_enabled? %}
+  <div class="pallette_1 no_bg" id="comments-block">
+
+    <div class="reviews-items-wrap m-b-30">
+      <div class="reviews-empty notice is-info text-center">
+        <a class="js-accordeon underline" href="comment_form">{{ messages.comment_add }}</a>
+      </div>
+    </div>
+
+    {% if form.posted_successfully? %}
+      {% if blog.moderated? %}
+        <div class="notice notice-success m-b-30">{{ messages.comment_is_added_moderated }}</div>
+      {% else %}
+        <div class="notice notice-success m-b-30">{{ messages.comment_is_added }}</div>
+      {% endif %}
+    {% endif %}
+
+    {% if comment.errors.size > 0 %}
+      <div class="notice notice-error m-b-30">
+
+        <p class="m-t-0">
+          {{ messages.fields_are_incorrect }}:
+        </p>
+
+        <ul class="no-list-style p-0 m-t-0 m-b-0">
+
+          {% if comment.errors contains 'author' %}
+            <li>{{ messages.field_name }}</li>{% endif %}
+
+          {% if comment.errors contains 'email' %}
+            <li>{{ messages.field_email }}</li>{% endif %}
+
+          {% if comment.errors contains 'content' %}
+            <li>{{ messages.field_comment }}</li>{% endif %}
+
+          {% if comment.errors contains 'captcha_solution' %}
+            <li>{{ messages.field_captcha }}</li>{% endif %}
+
+        </ul>
+
+      </div><!-- /.notice -->
+    {% endif %}
+
+    <div id="comment_form" class="form reviews-wrapper m-b-30 {% unless comment.errors.size > 0 %}hide{% endunless %}" data-href="comment_form">
+
+      {% form comment %}
+
+      <div class="form row is-grid flex-top">
+        <div class="cell-6 cell-12-m">
+          <div class="form-row author-row row {% if comment.errors contains 'author' %}is-error{% endif %}">
+            <div class="cell-12">
+              <label class="form-label">{{ messages.field_name }} <span class="text-error">*</span></label>
+            </div>
+            <div class="cell-12">
+              <input type="text" name="comment[author]" value="{{ comment.author }}"
+              class="form-field text-field inpt {% if comment.errors contains 'author' %} text-danger {% endif %} p-l-10 p-r-10"/>
+            </div>
+          </div><!-- /.author-row -->
+        </div>
+
+        <div class="cell-6 cell-12-m">
+
+          <div class="form-row email-row row {% if comment.errors contains 'email' %}is-error{% endif %}">
+            <div class="cell-12">
+              <label class="form-label">{{ messages.field_email }} <span class="text-error">*</span></label>
+            </div>
+            <div class="cell-12">
+              <input type="email" name="comment[email]" value="{{ comment.email }}"
+              class="form-field text-field inpt {% if comment.errors contains 'email' %} text-danger{% endif %} p-l-10 p-r-10"/>
+            </div>
+          </div><!-- /.email-row -->
+        </div>
+
+        <div class="cell-12">
+          <div class="form-row content-row row {% if comment.errors contains 'content' %}is-error{% endif %}">
+            <div class="cell-12">
+              <label class="form-label">{{ messages.field_comment }} <span class="text-error">*</span></label>
+            </div>
+            <div class="cell-12">
+              <textarea name="comment[content]" rows="5" class="form-field text-field inpt is-textarea p-l-10 p-r-10">{{ comment.content }}</textarea>
+            </div>
+          </div><!-- /.content-row -->
+
+          {% if comment.captcha_enabled? %}
+          <div class="form-row captcha-row row {% if comment.errors contains 'captcha_solution' %}is-error{% endif %}">
+            <div class="cell-12">
+               <div id="captcha_challenge" class="captcha-recaptcha">
+                {{ comment | recaptcha }}
+              </div>
+            </div>
+          </div><!-- /.captcha-row -->
+          {% endif %}
+
+          <div class="form-row form-control-row row">
+            <div class="cell-12">
+              <button type="submit" class="bttn-reg p-l-20 p-r-20">
+                <span class="bttn-text">{{ messages.button_submit }}</span>
+              </button>
+            </div>
+          </div><!-- /.form-control-row -->
+
+        </div>
+      </div>
+
+      {% endform %}
+
+      {% if blog.moderated? %}
+        <div>
+          <small>{{ messages.comments_are_moderated }}</small>
+        </div>
+      {% endif %}
+
+    </div><!-- /#comment_form -->
+
+    {% unless article.comments == empty %}
+
+      <div class="h2-like fw-700 text-uppercase text-center m-t-0 m-b-40 m-b-20-m">{{ messages.comments }} ({{ article.comments_count }})</div>
+      <div class="decor-arrow m-b-50"></div>
+
+      {% include "reviews_list", reviews_array: article.comments, reviews_mod: 'article' %}
+
+    {% endunless %}
+
+  </div><!-- /#comments-block -->
+{% endif %}

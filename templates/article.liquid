@@ -1,0 +1,71 @@
+<div class="article">
+  {% if article.image.original_url contains 'no_image' %}
+    {% include "breadcrumb" %}
+    <div class="container">
+      <div class="m-b-50">
+        <h1 class="h1-like m-t-0 m-t-50 m-b-15">{{ article.title }}</h1>
+        <div class="fw-300">{{ article.created_at | date: "%d" }} {% include "month" , created: article.created_at %} {{ article.created_at | date: "%Y" }}</div>
+      </div>
+    </div>
+  {% else %}
+    <div class="article-preview-big relative p-t-30 p-b-30 m-b-40" style="background-image: url({{ article.image.original_url | image_url: 1500 }});">
+      <div class="container relative">
+        {% include 'breadcrumb' with 'has-bg' %}
+        <h1 class="art m-t-0 m-t-50 m-b-15">{{ article.title }}</h1>
+        <div class="fw-300">{{ article.created_at | date: "%d" }} {% include "month" , created: article.created_at %} {{ article.created_at | date: "%Y" }}</div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container m-b-80">
+    {% if article.tags.size > 0 %}
+      <div class="article_tags m-b-15">
+        {% for tag in article.tags %}
+          <a class="inline-top p-r-10 m-b-5" href="{{ tag.url }}">#{{ tag.title }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div class="text-justify ">{{ article.content | editable }}</div>
+  </div>
+
+  {% if article.related_products.size > 0 %}
+    <div class="container m-b-80">
+      {% for product in article.related_products %}
+        {% include "products_slider", products_title: messages.art_prod_title, products_prefix: 'is-frontpage', card_prefix: 'in-frontpage', hide_product: hide_product  %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="container m-b-80">
+    {% include 'article-comments' %}
+  </div>
+</div>
+
+{% comment %}
+<div class="article-content article-{{ article.url | split: '/' | last }}">
+    <div class="row is-grid">
+
+    <div class="article-inner cell-9 cell-12-mc">
+      {% include "article_content" %}
+    </div>
+
+    <div class="blog-right-column cell-3 cell-12-mc">
+      <div class="article-image">
+        <img src="{{ article.image.original_url }}" alt="{{ article.title }}" title="{{ article.title }}"/>
+      </div>
+      
+    </div>
+  </div>
+</div>
+{% endcomment %}
+
+
+
+
+
+
+
+
+
+
+

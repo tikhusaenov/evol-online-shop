@@ -1,0 +1,13 @@
+{% assign filter_active = false %}
+{% assign option_active = '' %}
+{% assign property_active = '' %}
+{% assign active_attr = active_attr | default: 'data-active-filter' %}
+
+{% if property.current? or property.lt_value or property.gt_value %}
+  {% assign filters_active = true %}
+  {% assign filter_active = true %}
+{% endif %}
+
+{% assign property_active = filter_active | default: '' | replace: 'true', active_attr %}
+
+{% assign active_attr = nil %}

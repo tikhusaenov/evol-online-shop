@@ -1,0 +1,112 @@
+{% assign show_instagram = false %}
+{% if template == 'index' %}
+  {% if settings.instagram_main_on == '1' or settings.instagram_main_on == 'on' %}
+    {% assign show_instagram = true %}
+  {% endif %}
+{% else %}
+  {% if settings.instagram_other_on == '1' or settings.instagram_other_on == 'on' %}
+    {% assign show_instagram = true %}
+  {% endif %}
+{% endif %}
+
+{% assign instagram_title = settings.instagram_link | split: '/' | last %}
+{% assign instagram_token = settings.instagram_token %}
+{% assign instagram_user = settings.instagram_token | split: '.' | first %}
+
+{% if show_instagram == true %}
+  <div class="instagram b-top p-t-100 p-b-100 p-t-50-m p-b-50-m pallette_1">
+    <div class="container">
+      <div class="row is-grid">
+        <div class="cell-4 cell-12-m m-b-50-m">
+          <div class="h2-like fw-700 text-uppercase m-t-0 m-b-30">{{ messages.we_in }} Instagram</div>
+          <div class="h3-like fw-300 text-uppercase m-b-30">@{{ instagram_title }}</div>
+          <div class="m-b-30">{{ settings.instagram_title | editable }}</div>
+          <div>
+            <a class="bttn-underline hover-opacity c_special_2_color" href="{{ settings.instagram_link }}" target="_blank">
+              <span class="inline-middle">{{ messages.button_more }}</span>
+              &nbsp;
+              <span class="transition inline-middle">{% include 'svg' with 'arrow-right' %}</span>
+            </a> 
+          </div>
+        </div>
+        <div class="cell-8 cell-12-m">
+          <div class="instagram-photos relative" data-user="{{ instagram_user }}" data-token="{{ instagram_token }}">
+            <div class="frame frame-1 inline-top"></div>
+            <div class="frame frame-2 inline-top relative"></div>
+            <div class="frame frame-3 inline-top"></div>
+            <div class="frame frame-4 inline-top relative"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.instagram-photos').each(function(){
+        $.ajax({
+          type: 'GET',
+          dataType: 'json',
+          cache: false,
+          url: 'https://instagram.com/{{ instagram_title }}/?__a=1',
+          
+          success: function(data){
+            var allPhotos = data.graphql.user.edge_owner_to_timeline_media.edges;
+            var framesCount = $('.instagram-photos .frame:last-child').index() * 1 + 1;
+            
+            for(var i = 0; i < allPhotos.length; i++){
+              var frameCount = i + 1;
+
+              if(frameCount <= framesCount){
+                var needCount = frameCount;
+              } else{
+                var needCount = Math.floor(frameCount / framesCount);
+                var needCount = frameCount - (needCount * framesCount);
+
+                if(needCount == 0){
+                  var needCount = framesCount;
+                }
+              }
+
+              var needClass = '.instagram-photos .frame.frame-' + needCount;
+              $(needClass).append('<span data-src="' + allPhotos[i].node.thumbnail_src + '""></span>');
+            }
+            
+            $('.instagram-photos .frame').each(function(){
+              var thisEl = $(this);
+              var thisUrl = thisEl.find('span:first-child').attr('data-src');
+
+              $(this).css({
+                'background-image' : 'url(' + thisUrl + ')'
+              });
+            });
+          }
+        });
+      });
+    });
+  </script>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

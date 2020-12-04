@@ -1,0 +1,18 @@
+<div class="js-products-slider in-collection">
+	<div class="products-slider-wrapper relative">
+    <div class="products-slider swiper-container products-slider-{{ products_prefix }}">
+      <div class="swiper-wrapper">
+      	{% for product in collection.products %}
+	      	<div class="swiper-slide">
+			      {% include 'product-item' %}
+			    </div>
+			  {% endfor %}
+      </div>
+    </div>
+
+    <div class="products-control">
+      <div class="review-slider-prev swiper-button-prev">{% include 'svg' with 'review-arrow-left' %}</div>
+      <div class="review-slider-next swiper-button-next">{% include 'svg' with 'review-arrow-right' %}</div>
+    </div>
+  </div>
+</div>

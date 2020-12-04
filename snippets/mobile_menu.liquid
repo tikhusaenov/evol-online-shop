@@ -1,0 +1,40 @@
+<div class="mobile-popup side-popup left transition pallette_1" custom-popup-modal="mobile-menu">
+  <a class="button-close mobile-menu-close" custom-popup-close="mobile-menu" href="#">
+    {% include 'svg' with 'icon_close' %}
+  </a>
+
+  <div class="b-bottom m-b-20">
+    <a href="/" class="mobile-logotype">
+      {% include 'logotypes' with 'header' %}
+      <p class="fosiz">Обратная сторона твоих желаний</p> 
+    </a>
+  </div>
+
+  <div class="collection-flatten b-bottom p-b-30 m-b-20">
+    {% assign main_handle = collections[0].parent.handle %}
+    {% include "menu", source_type: 'collection', source_handle: main_handle, menu_class: 'collection-flatten' %}
+  </div>
+
+  {% if linklists[settings.header_menu_permalink].links.size > 0 %}
+    <div class="collection-flatten b-bottom p-b-30 m-b-20 hide show-lg">
+      <ul class="no-list-style">
+        {% for link in linklists[settings.header_menu_permalink].links %}
+          <li class="p-t-10"><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+
+    
+    <a class="js-modal bttn-underline hover-opacity c_special_2_color" href="#feedback-modal">
+      <span class="inline-middle">{{ messages.t_backcall }}</span>
+      &nbsp;
+      <span class="transition inline-middle">{% include 'svg' with 'arrow-right' %}</span>
+    </a> 
+  <div>
+    
+  </div>
+</div>
+
+<div class="popup-bg" custom-popup-bg="mobile-menu"></div>

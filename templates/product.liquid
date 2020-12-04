@@ -1,0 +1,48 @@
+{% assign no_image = false %}
+{% if product.images.size == 0 %}
+  {% assign no_image = true %}
+{% endif %}
+
+<div class="m-b-50">
+  {% include "breadcrumb" %}
+</div>
+
+<div data-prod>
+
+    <div class="container m-b-20 ">
+      <div class="row is-grid flex-center">
+        <div class="cell-6_1 cell-6-lg post-0-lg cell-12-sm m-b-40-sm">
+          {% if no_image == true %}
+            <img src="{{ 'no_image.png' | asset_url }}" />
+          {% else %}
+            {% include "product_gallery" %}
+          {% endif %}
+        </div>
+        <div class="cell-6 text-left cell-6-lg cell-12-sm">
+          {% include "product_info" %}
+        </div>
+      </div>
+    </div>
+
+    <div class="m-b-40 m-b-30-m">
+      {% include "product_tabs" %}
+    </div>
+
+    {% if product.related_products.size > 0 %}
+      <div class="p-b-100 p-b-50-m">
+        {% for product in product.related_products %}
+          {% assign hide_product = false %}
+          {% include "products_slider", products_title: messages.related_products, products_prefix: 'is-related', card_prefix: 'in-product', hide_product: hide_product  %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if product.similar_products.size > 0 %}
+      <div class="p-b-100 p-b-50-m">
+        {% for product in product.similar_products %}
+          {% assign hide_product = false %}
+          {% include "products_slider", products_title: messages.similar_products, products_prefix: 'is-similar', card_prefix: 'in-product', hide_product: hide_product  %}
+        {% endfor %}
+      </div>
+    {% endif %}
+</div>

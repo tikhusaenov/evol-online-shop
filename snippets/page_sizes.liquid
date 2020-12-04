@@ -1,0 +1,55 @@
+{% assign paginate_page_size = paginate.page_size | times: 1 %}
+
+{% assign page_steps = page_steps | default: '12,24,48,96' %}
+{% assign input_type = input_type | default: 'select' %}
+
+{% assign array_steps = page_steps | split: ',' %}
+
+<div class="js-show-page-size hide">{{ settings.collection_count }}</div>
+
+{% if input_type == 'select' %}
+  <select class="slct colorfilt slct-page_size js-filter-trigger" name="page_size">
+    {% for step in array_steps %}
+      {{ step | select_option: page_size, step }}
+    {% endfor %}
+  </select>
+{% endif %}
+
+{% if input_type == 'radio' %}
+  {% for step in array_steps %}
+  {% assign step_num = step | times: 1 %}
+  <label class="page_size-radio">
+    <input class="js-filter-trigger " hidden {% if page_size == step or paginate_page_size == step_num %}checked{% endif %} value="{{ step }}" type="radio" name="page_size">
+    <span class="page_size-radio-control">
+      {{ step }}
+    </span>
+  </label>
+  {% endfor %}
+{% endif %}
+
+{% if input_type == 'drop' %}
+  <div class="drop">
+    <div class="page_size_drop-label">
+      {% if page_size %}
+        Показать по {{ page_size }}
+        {% else %}
+        Показать по {{ array_steps.first }}
+      {% endif %}
+    </div>
+    <div class="drop-target page_size_drop-target">
+      {% for step in array_steps %}
+      {% assign step_num = step | times: 1 %}
+      <label class="page_size_drop-item">
+        <input class="js-filter-trigger " hidden {% if page_size == step or paginate_page_size == step_num %}checked{% endif %} value="{{ step }}" type="radio" name="page_size">
+        <span class="page_size_drop-control">
+          {{ step }}
+        </span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% assign page_steps = nil %}
+{% assign array_steps = nil %}
+{% assign input_type = nil %}

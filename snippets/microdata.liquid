@@ -1,0 +1,63 @@
+{%- if template contains 'product' -%}
+{%- assign product_description = product.description | strip_html | json -%}
+{%- unless product.description -%}
+{%- assign product_description = product.short_description | strip_html | json -%}
+{%- endunless -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/", 
+  "@type": "Product", 
+  "name": "{{ product.title }}",
+  "image": "{{ product.images.first.original_url }}",
+  "description": {{ product_description }},
+  "brand": "{{ product.properties.brend.characteristics.first.name }}",
+  "sku": "{{ product.sku }}",
+  "offers": {
+  	"@type": "AggregateOffer",
+    "lowPrice": "{{ product.price_min }}",
+    "highPrice": "{{ product.price_max }}",
+    "priceCurrency": "{{ account.currency_code }}",
+    "offerCount": "{{ product.variants.size }}",
+    "offers": [
+    {%- for variant in product.variants -%}
+      {
+        "@type": "Offer",
+    	"url": "{{ product.url }}",
+    	"priceCurrency": "{{ account.currency_code }}",
+    	"price": "{{ variant.price }}",
+        "sku": "{{ variant.id }}",
+    	"availability": "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}"
+      }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+    ]  
+  }
+  {%- if product.rating -%},
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ product.rating }}",
+    "worstRating": "1",
+    "bestRating": "5",
+    "ratingCount": "{{ product.reviews_count }}",
+    "reviewCount": "{{ product.reviews_count }}"
+  },
+  "review": [
+  	{%- for review in product.reviews -%}
+    {
+      "@type": "Review",
+      "name": "{{ product.title }}",
+      "reviewBody": "{{ review.content | escape }}",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "{% if review.rating %}{{ review.rating }}{% else %}5{% endif %}",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "datePublished": "{{ review.created_at | date: "%Y-%m-%d" }}",
+      "author": {"@type": "Person", "name": "{{ review.author }}"}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+  {%- endif -%}
+}
+</script>
+{%- endif -%}

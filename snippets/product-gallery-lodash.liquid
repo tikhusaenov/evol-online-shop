@@ -1,0 +1,37 @@
+<div class="gallery-wrapper" id="gallery-wrapper">
+
+  <%= getStiker('stiker', characteristics) %>
+
+<div class="gallery-top">
+  <div class="swiper-container js-product-gallery-main">
+    <div class="swiper-wrapper">
+      <% _.forEach(images, function (image, index){ %>
+        <div href="<%= image.original_url %>" class="swiper-slide gallery-slide MagicZoom" data-gallery="gallery">
+          <img src="<%= image.original_url %>" data-zoom="<%= image.original_url %>">
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<% if (images.length > 1){ %>
+<div class="gallery-thumbs-wrap">
+  <div class="swiper-container gallery-thumbs js-gallery-thumbs">
+      <div class="swiper-wrapper">
+        <% _.forEach(images, function (image, index){ %>
+          <div class="swiper-slide js-gallery-trigger">
+            <div class="gallery-thumb image-container is-cover js-image-variant">
+              <img src="<%= image.compact_url %>" data-zoom="<%= image.compact_url %>">
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <!-- Add Arrows -->
+  </div>
+  <% if (images.length > 3){ %>
+  <div class="swiper-button-next is-thumb"></div>
+  <div class="swiper-button-prev is-thumb"></div>
+  <% } %>
+</div>
+<% } %>
+</div>

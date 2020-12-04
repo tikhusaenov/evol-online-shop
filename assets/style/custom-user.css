@@ -1,0 +1,8 @@
+@media (max-width: 768px) {
+  .button_to_cart_quick {
+    margin-top: 10px; 
+  }
+}
+.m-modal-wrapper textarea#shipping_address_address {
+  color: #ffc9b8;
+}

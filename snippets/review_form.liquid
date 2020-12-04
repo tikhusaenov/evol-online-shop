@@ -1,0 +1,94 @@
+<div class="reviews-wrapper">
+  <div class="reviews-form">
+    {% if form.posted_successfully? %}
+      {% if account.reviews_moderated? %}
+        <div class="notice notice-success m-b-20">
+          {{ messages.review_is_added_moderated }}
+        </div><!-- /.notice -->
+      {% else %}
+        <div class="notice notice-success m-b-20">{{ messages.review_is_added }}.</div><!-- /.notice -->
+      {% endif %}
+    {% endif %}
+
+    {% if review.errors.size > 0 %}
+      <div class="notice notice-error m-b-20">
+        <p class="m-t-0">{{ messages.fields_are_incorrect }}:</p>
+        <ul class="no-list-style p-0 m-t-0 m-b-0">
+          {% if review.errors contains 'author' %}
+            <li>{{ messages.field_name }}</li>{% endif %}
+          {% if review.errors contains 'email' %}
+            <li>{{ messages.field_email }}</li>{% endif %}
+          {% if review.errors contains 'content' %}
+            <li>{{ messages.field_message }}</li>{% endif %}
+          {% if review.errors contains 'captcha_solution' %}
+            <li>{{ messages.field_captcha }}</li>{% endif %}
+        </ul>
+      </div><!-- /.notice -->
+    {% endif %}
+
+    <div id="review_form" class="form row is-grid flex-top js-review-wrapper">
+
+      <div class="form-row  is-required cell-6 cell-12-sm {% if review.errors contains 'author' %}is-error{% endif %}">
+        <label class="form-label">{{ messages.field_name }} <span class="text-error">*</span></label>
+
+        <input name="review[author]" value="{{ review.author }}" type="text" class="form-field text-field inpt p-l-10 p-r-10"/>
+      </div>
+
+      <div class="form-row is-required cell-6 cell-12-sm {% if review.errors contains 'email' %}is-error{% endif %}">
+        <label class="form-label">{{ messages.field_email }} <span class="text-error">*</span></label>
+
+        <input name="review[email]" value="{{ review.email }}" type="text" class="form-field text-field inpt p-l-10 p-r-10"/>
+      </div>
+
+      <div class="form-row is-required cell-12 {% if review.errors contains 'content' %}is-error{% endif %}">
+        <label class="form-label">{{ messages.field_comment }} <span class="text-error">*</span></label>
+
+        <textarea name="review[content]" class="form-field text-field is-textarea inpt p-l-10 p-r-10">{{ review.content }}</textarea>
+      </div>
+
+      {% if account.reviews_images_enabled? %}
+        <div class="form-row is-required cell-12 {% if review.errors contains 'image.image' %} input--error{% endif %} padded-sides">
+          <label for="review_image" class="form-label">{{ messages.field_photo }}</label>
+          
+          <input type="file" name="review[image_attributes][image]" />
+        </div>
+      {% endif %}
+
+      {% if review.captcha_enabled? %}
+        <div class="form-row is-required cell-6 cell-12-sm {% if review.errors contains 'captcha_solution' %}is-error{% endif %}">
+        
+          <div id="captcha_challenge" class="captcha-recaptcha">
+            {{ comment | recaptcha }}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="form-row is-required cell-6 cell-12-sm star-rating-row">
+        <label class="form-label">{{ messages.field_rating }}</label>
+
+        <div class="star-rating-wrapper">
+          <div class="star-rating">
+            {% assign r = 5 %}
+            {% for i in (1..5) %}
+              <input name="review[rating]" id="star{{ r }}-{{ product.id }}" type="radio" name="reviewStars" class="star-radio" value="{{ r }}"/>
+              <label title="{{ r }}" for="star{{ r }}-{{ product.id }}" class="star-label"></label>
+              {% assign r = r | minus: 1 %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-controls cell-12">
+        <button type="submit" class="bttn-reg p-l-20 p-r-20">{{ messages.button_submit }}</button>
+      </div>
+
+    </div><!-- /.review_form -->
+
+    {% if account.reviews_moderated? %}
+    <div class="text-center m-t-30">
+      <small>{{ messages.reviews_are_moderated }}</small>
+    </div>
+    {% endif %}
+
+  </div>
+</div>

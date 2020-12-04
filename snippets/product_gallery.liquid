@@ -1,0 +1,99 @@
+{% assign labels_list = '' %}
+{% if product.properties.stiker %}
+  {% for characteristic in product.properties.stiker.characteristics %}
+    {% capture main_stiker %}<div class="stiker stiker-{{ characteristic.handle }}">{{ characteristic.title }}</div>{% endcapture %}
+    {% assign labels_list = labels_list | append: main_stiker %}
+    {% assign main_stiker = null %}
+  {% endfor %}
+{% endif %}
+
+<div class="gallery-wrapper pallette_1 no_bg" id="gallery-wrapper" style="opacity: 0;">
+  {% assign first_image = null %}
+{% for variant in product.variants %}
+  {% if variant.available %}
+   
+    {% assign first_image = variant.first_image.original_url %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+<div class="gallery-top m-b-20">
+  <div class="swiper-container js-product-gallery-main" data-first-image="{{first_image}}">
+
+
+
+
+
+{% for property in product.properties %} 
+        
+          {% if property.name == 'Бестселлер' %}
+            {% for characteristic in property.characteristics %}
+              {% if characteristic.name == 'Да' %}
+                 <div class="img_property_1">
+                  Бестселлер
+                </div>
+              {% endif %}
+            {% endfor %} 
+          {% endif %}
+          {% if property.name == 'Новинка' %}
+            {% for characteristic in property.characteristics %}
+              {% if characteristic.name == 'Да' %}
+                <div class="img_property_2">
+                  Новинка
+                </div>
+              {% endif %}
+            {% endfor %} 
+          {% endif %}
+          {% if property.name == 'Распродажа' %}
+            {% for characteristic in property.characteristics %}
+              {% if characteristic.name == 'Да' %}
+                <div class="img_property_3">
+                  Распродажа
+                </div>
+              {% endif %}
+            {% endfor %} 
+          {% endif %}
+      {% endfor %}
+    <div class="swiper-wrapper">
+        {% for image in product.images %}
+          {% capture gallery_title %}alt="{{ product.title }}"{% endcapture %}
+          {% if image.title.size > 0 %}
+            {% capture gallery_title %}alt="{{ image.title }}"{% endcapture %}
+          {% endif %}
+          <div class="swiper-slide sw gallery-slide">
+            {% if settings.product_zoom == 'superzoom_square' %}
+              {% capture gallery_settings %}class="MagicZoom" data-options="hint: off;"{% endcapture %}
+            {% elsif settings.product_zoom == 'superpopup' %}
+              {% capture gallery_settings %}data-fancybox="gallery" id="image_gallery_{{ forloop.index }}"{% endcapture %}
+            {% else %}
+              {% capture gallery_settings %}class="MagicZoom" data-options="hint: off; zoomMode: magnifier;"{% endcapture %}
+            {% endif %}
+
+            <a href="{{ image.original_url }}" {{ gallery_settings }}>
+              {% assign img_title = product.title | escape | replace: '"', '&#34' | replace: '"', '&#34' %}
+              <img src="{{ image.original_url }}" {{ gallery_title }}>
+            </a>
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% if product.images.size > 1 %}
+<div class="gallery-thumbs-wrap relative m-t-20">
+  <div class="swiper-container gallery-thumbs js-gallery-thumbs">
+      <div class="swiper-wrapper">
+        {% for image in product.images %}
+          <div class="swiper-slide js-gallery-trigger">
+            <div class="gallery-thumb image-container is-cover js-image-variant" style="background-image: url({{ image.medium_url }});"></div>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- Add Arrows -->
+  </div>
+  {% if product.images.size > 4 %}
+  <div class="swiper-button-prev is-thumb">{% include 'svg' with 'review-arrow-left' %}</div>
+  <div class="swiper-button-next is-thumb">{% include 'svg' with 'review-arrow-right' %}</div>
+  {% endif %}
+</div>
+{% endif %}
+</div>

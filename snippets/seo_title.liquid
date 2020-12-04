@@ -1,0 +1,64 @@
+{% if template contains 'product' %}
+  {% if title == product.title %}
+    {% assign main_title = product.title   %}
+  {% endif %}
+
+{% elsif template contains 'collection' %}
+  {% if title == collection.title %}
+    {% assign  main_title =  collection.title  %}
+  {% endif %}
+
+{% elsif template contains 'cart' %}
+      {% assign main_title = messages.cart_title  %}
+
+{% elsif template contains 'search' %}
+      {% assign main_title = messages.search_title  %}
+      {% assign description = messages.search_title  %}
+      {% assign keywords = messages.search_title  %}
+
+{% elsif template contains 'compare' %}
+    {% assign main_title = messages.comparison_title  %}
+
+{% elsif template contains  'index' %}
+  {% if title != index.title %}
+    {% assign main_title = index.title %}
+  {% endif %}
+
+{% elsif template contains  'blog' %}
+  {% if title != '' %}
+    {% assign main_title = title  %}
+  {% else %}
+    {% assign main_title = blog.title  %}
+  {% endif %}
+
+{% elsif template contains  'article' %}
+  {% if title != '' %}
+    {% assign main_title = title  %}
+  {% else %}
+    {% assign main_title = article.title  %}
+  {% endif %}
+
+{% elsif template contains  'page' %}
+  {% if title != '' %}
+    {% assign main_title = title  %}
+  {% else %}
+    {% assign main_title = page.title  %}
+  {% endif %}
+
+{% else %}
+<title>
+  {% yield 'title' %}
+</title>
+{% endif %}
+
+  <title>
+    {% if main_title == nil %}
+        {{ title }}
+    {% else %}
+        {{ main_title }}
+    {% endif %}
+  </title>
+
+{% assign count_page = nil %}
+{% assign  main_title = nil %}
+{% assign page_title= nil %}

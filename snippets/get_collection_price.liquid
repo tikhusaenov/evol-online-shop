@@ -1,0 +1,28 @@
+{% if price_max or price_min %}
+  {% assign filter_active = true %}
+  {% assign filters_active = true %}
+{% endif %}
+
+{% assign coll_handler = collection.handle %}
+{% assign coll_min = collections[coll_handler].products_price_min | round: 0 %}
+{% assign coll_max = collections[coll_handler].products_price_max | round: 0 %}
+
+{% if price_min %}
+  {% assign price_min = price_min | round: 0 %}
+{% else %}
+  {% assign price_min = coll_min %}
+{% endif %}
+
+{% if price_max %}
+  {% assign price_max = price_max | round: 0 %}
+{% else %}
+  {% assign price_max = coll_max %}
+{% endif %}
+
+{% unless active_attr %}
+  {% assign active_attr = 'data-active-filter' %}
+{% endunless %}
+
+{% assign price_active = filter_active | default: '' | replace: 'true', active_attr %}
+
+{% assign active_attr = nil %}

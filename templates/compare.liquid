@@ -1,0 +1,15 @@
+<div class="container">
+  {% include 'breadcrumb' %}
+
+  <h1 class="page-title">
+    Сравнение
+  </h1>
+</div>
+
+{% include "compares_body" %}
+
+<script type="text/javascript">
+  if (!Site) {
+    Site.template = 'compare';
+  }
+</script>

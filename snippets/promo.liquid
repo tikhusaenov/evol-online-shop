@@ -1,0 +1,111 @@
+{% if data.blocks.size > 0 %}
+  <div class="promo-slider-wrapper relative p-b-30 p-b-30-s">
+    <div class="promo-slider swiper-container swiper-container-autoheight1">
+      <div class="swiper-wrapper">
+
+        {% for slide in data.blocks %}
+          <div class="promo-slide swiper-slide">
+            {% assign tag = 'div' %}
+            {% assign attr = '' %}
+            {% if slide.link.size > 0 %}
+              {% assign tag = 'a' %}
+              {% assign attr = 'href="' | append: slide.link | append: '"' %}
+            {% endif %}
+
+            <div {{ attr }} class="slide-inner">
+              {% if slide.image == "https://static-eu.insales.ru/files/1/7002/12295002/original/Banner_Mask8__1_.jpg" %}
+                <a class="anti" href="/collection/maski-antiseptiki"></a>
+              {% endif %}
+              {% if slide.image == "https://static-ru.insales.ru/files/1/211/12771539/original/Truck_8aaf1491248e569669f7155e1dc929c0.jpg" %}
+          
+
+                   
+                    <div class="dostavkavirus">Коронавирус не пройдёт! Воспользуйтесь бесконтактной доставкой <span>EVOL!</span><br>
+                      <a class="dost_button" href="/page/info">
+                      Подробнее
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                    </a>
+                    </div>
+                    
+                
+              {% endif %}
+              {% if slide.image == "https://static-ru.insales.ru/files/1/409/12198297/original/Pirog_8__1__524020a4883a9c91483499b80430a1b2.jpg" %}
+                <div class="opening ">
+                  <p>Мы открылись!</p>
+                </div>
+                <div class="opening20">
+                  <span>Покупайте</span> со скидкой в <span>20%</span> на все товары до конца <span>августа!</span>
+                  <a class="dost_button_1" href="/collection/all">
+                      Перейти
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+                    </a>
+                </div>
+               
+                
+              {% endif %}
+              <img class="promo-image" src="{{ slide.image}}" alt="{{ slide.title | strip_html }}"
+                
+
+               />
+              
+              <div class="promo-text absolute content-middle text-center p-t-20-s p-b-30-s">
+                {% if slide.heading.size > 0 %}
+                  <div class="fw-700">{{ slide.heading | editable }}</div>
+                {% endif %}
+
+                {% if slide.description and slide.description != '' %}
+                  
+                {% endif %}
+
+                {% if slide.link.size > 0 %}
+                  <div class="promo-link m-t-20 m-t-0-lg">
+                    <a class="inline-top hover-opacity" href="{{ slide.link }}">{{ slide.linktext | editable }}</a>
+                  </div>
+                {% endif %}
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+       
+      </div>
+       
+
+      <div class="promo-slider-pagination swiper-pagination swiper-pagination-white absolute"></div>
+
+      
+        <div class="promo-slider-prev swiper-button-prev swiper-button-white"></div>
+        <div class="promo-slider-next swiper-button-next swiper-button-white"></div>
+      
+    </div>
+    <div id="komhref">
+    <a href="#complectBox" class="komplekt">
+        <div class="block_arr">
+          
+          <svg class="double" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg>
+        <span class="blok">Покупайте карантинные комплекты! Лучшие предложения до конца августа!</span>
+       
+        <svg class="double" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg>
+        </div>
+        <div class="none">
+          <svg  xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg>
+          Успейте купить карантинные комплекты!
+           <svg  xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M0 3.795l2.995-2.98 11.132 11.185-11.132 11.186-2.995-2.981 8.167-8.205-8.167-8.205zm18.04 8.205l-8.167 8.205 2.995 2.98 11.132-11.185-11.132-11.186-2.995 2.98 8.167 8.206z"/></svg>
+        </div>
+
+        <div class="liquidk"></div>
+    </a>
+    </div>
+    <div class="decor-arrow hide-s"></div>
+  </div>
+{% endif %}
+<script type="text/javascript">
+ $(document).ready(function(){
+    $("#komhref").on("click","a", function (event) {
+        event.preventDefault();
+        var id  = $(this).attr('href'),
+            top = $(id).offset().top;
+        $('body,html').animate({scrollTop: top - 200 }, 1500);
+    });
+});
+</script>

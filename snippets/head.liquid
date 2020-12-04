@@ -1,0 +1,62 @@
+{% include "seo_title" %}
+
+<!-- meta -->
+<meta charset="UTF-8" />
+<meta name="keywords" content='{% if filter %}{{ filter.meta_keywords }}{% else %}{{ keywords }}{% endif %}'/>
+
+<meta name="description" content='{% if filter %}{{ filter.meta_description }}{% else %}{{ description }}{% endif %}'/>
+
+<meta name="robots" content="index,follow" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+
+<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}">
+
+{% if template contains 'product.' or template == 'product' %}
+    <link rel="canonical" href="{{ account.url }}{{ product.canonical_url }}" />
+    <meta property="og:title" content="{{ product.title }}" />
+    <meta property="og:type" content="website" /> 
+    <meta property="og:url" content="{{ account.url }}{{ product.url }}" />
+    {% if product.first_image.thumb_url contains 'http' %}
+      <meta property="og:image" content="{{ product.first_image.original_url }}" />
+    {% else %}
+      <meta property="og:image" content="{{ account.url }}{{ product.first_image.original_url }}" />
+    {% endif %}
+  {% elsif template contains 'collection.' or template == 'collection' %}
+    <link rel="canonical" href="{{ account.url }}{{ collection.url }}" />
+    <meta property="og:title" content="{{ collection.title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ account.url }}{{ collection.url }}" />
+  {% elsif template contains 'index.' or template == 'index' %}
+    <meta property="og:title" content="{{ account.title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ account.url }}{{ account.url }}" />
+    {% assign path_logotype = "logotype.png" | asset_url_if_exists %}
+    {% if path_logotype %}
+      <meta property="og:image" content="{{ path_logotype }}" />
+    {% endif %}
+  {% elsif template contains 'article.' or template == 'article' %}
+    <meta property="og:title" content="{{ article.title }}" />
+    <meta property="og:image" content="{{ article.image.original_url }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ article.url }}" />
+  {% elsif template contains 'blog.' or template == 'blog' %}
+    <link rel="alternate" type="application/rss+xml" title="{{ blog.title }}" href="{{ account.url }}{{ blog.url }}.atom" />
+    <meta property="og:title" content="{{ blog.title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ account.url }}{{ blog.url }}" />
+  {% elsif template contains 'page.' or template == 'page' %}
+    <meta property="og:title" content="{{ page.title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ account.url }}{{ page.url }}" />
+  {% elsif template contains 'search.' or template == 'search' %}
+  
+{% endif %}
+
+<!-- fixes -->
+<!--[if IE]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<!--[if lt IE 9]>
+<script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->

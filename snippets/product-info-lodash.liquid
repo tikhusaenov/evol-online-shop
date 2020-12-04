@@ -1,0 +1,84 @@
+<div class="product-info">
+
+  <form class="" action="{{ cart_url }}" method="post" data-product-id="<%= id %>" data-recently-view="<%= id %>" data-product-gallery=".js-product-gallery-main">
+  <h1 class="product-title">
+    <%= title %>
+  </h1>
+
+
+  <div class="product-available" data-product-available>
+    {% if product.available %}
+    Товар в наличии
+    {% else %}
+    Товара нет в наличии
+    {% endif %}
+  </div>
+
+  <div class="product-sku" data-product-sku>
+    {% if product.variants.first.sku %}
+    арт. {{ product.variants.first.sku }}
+    {% endif %}
+  </div>
+
+  <div class="product-prices">
+    <% if (variants[0].old_price){ %>
+    <div class="product-old_price">
+      <%= Shop.money.format(variants[0].old_price) %>
+    </div>
+    <% } %>
+    <div class="product-price">
+      <span data-product-price><%= Shop.money.format( variants[0].price ) %></span>
+    </div>
+  </div>
+
+
+  <% if(short_description){ %>
+  <div class="product-short_description">
+    <%= short_description %>
+  </div>
+  <% } %>
+
+  <% if(parameters){ %>
+    <div class="props">
+      <% _.forEach(parameters, function (property){  %>
+        <div class="property">
+          <label><span><%= title %></span></label>
+          <span>
+            <% _.forEach(property.characteristics, function (characteristic, index){  %>
+              <%= characteristic.title %><% if(index + 1 < _.size(property.characteristics)){ %>, <% } %>
+            <% }) %>
+          </span>
+        </div>
+      <% }) %>
+     </div>
+  <% } %>
+
+  <% if (variants.length > 1){ %>
+    <select name="variant_id" data-product-variants>
+      <% _.forEach(variants, function (variant){ %>
+      <option value="<%= variant.id %>"><%= variant.title %></option>
+      <% }) %>
+    </select>
+  <% }else{ %>
+    <input type="hidden" name="variant_id" value="<%= variants[0].id %>" >
+  <% } %>
+
+  {% include "quantity", input_type: 'product' %}
+
+  <div class="product-buy">
+    <button type="submit" data-item-add class="bttn-prim in-product">
+      В корзину
+    </button>
+  </div>
+
+  {% if account.quick_checkout.enabled %}
+    <button type="button" class="bttn-second" data-quick-checkout="[data-product-id='<%= id %>']">
+      В один клик
+    </button>
+  {% endif %}
+
+    <button type="button" class="bttn-favorite" data-favorites-trigger="<%= id %>">
+    </button>
+
+  </form>
+</div>

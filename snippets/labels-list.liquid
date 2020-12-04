@@ -1,0 +1,94 @@
+{% assign labels_list = '' %}
+{% if product.properties.stiker %}
+  {% for characteristic in product.properties.stiker.characteristics %}
+    {% capture main_stiker %}<div class="stiker stiker-{{ characteristic.handle }} p-l-5 p-r-5 m-b-5">{{ characteristic.title }}</div>{% endcapture %}
+    {% assign labels_list = labels_list | append: main_stiker %}
+    {% assign main_stiker = null %}
+  {% endfor %}
+{% endif %}
+
+{% assign show_labels = false %}
+{% assign prop_handle = property | default: 'label' %}
+{% assign labels_list = product.properties[prop_handle] %}
+
+{% if labels_list or product.variants.first.old_price %}
+  {% unless bundle_component %}
+    {% assign show_labels = true %}
+  {% endunless %}
+{% endif %}
+
+{% if product.is_bundle and product.bundle_discount > 0 %}
+  {% assign show_labels = true %}
+{% endif %}
+
+{% unless product.available %}
+  {% assign show_labels = true %}
+{% endunless %}
+
+{% if show_labels %}
+  <div class="stiker-block" data-labels-id="{{ product.id }}">
+    
+    {% if labels_list %}
+      {% for characteristic in labels_list.characteristics %}
+        <span class=" stiker stiker-{{ characteristic.handle }}  p-l-5 p-r-5 m-b-5">
+          {{ characteristic.name }}
+        </span>
+      {% endfor %}
+    {% endif %}
+
+    {% assign max_discount = 0 %}
+    {% for variant in product.variants %}
+      {% if variant.old_price and variant.price < variant.old_price %}
+        {% assign discount = variant.price | divided_by: variant.old_price | times: -100 | plus: 100 | round: 0 %}
+        {% if max_discount < discount %}{% assign max_discount = discount %}{% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% unless max_discount == 0 or bundle_component %}
+      <div class="stiker pallette_1 m-b-5 m-r-10 m-t-10">
+        {% if product.old_price_varies? %}
+          {{ messages.label_to | downcase }}
+        {% endif %}
+        {{ max_discount }}%
+
+      </div>
+
+    {% endunless %}
+
+    
+
+   
+
+    {% if product.is_bundle and product.bundle_discount > 0 and max_discount == 0 %}
+      <span class="stiker pallette_1 p-l-5 p-r-5 m-b-5 is-bundle-discount">
+        {{ messages.prod_economy }}: {{ product.bundle_discount | money }}
+      </span>
+    {% endif %}
+
+    {% unless product.available %}
+      {% case settings.product_not_available %}
+        {% when 'preorder' %}
+          {% assign label_text = messages.preorder %}
+          {% assign label_class = 'is-preorder' %}
+        {% when 'hidden' %}
+          {% assign label_text = messages.product_not_available %}
+          {% assign label_class = 'not-available' %}
+      {% endcase %}
+
+      {% unless bundle_component or settings.product_not_available == 'shown' %}
+        {% if label_text %}
+          <span class="stiker  p-l-5 p-r-5 m-b-5 {{ label_class }}">
+            {{ label_text }}
+          </span>
+        {% endif %}
+      {% endunless %}
+    {% endunless %}
+  </div>
+{% endif %}
+
+{% assign show_labels = null %}
+{% assign label_text = null %}
+{% assign label_class = null %}
+{% assign max_discount = null %}
+{% assign discount = null %}
+{% assign max_discount = null %}

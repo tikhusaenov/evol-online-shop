@@ -1,0 +1,20 @@
+{% if product.reviews_count > 0 %}
+<div class="reviews-items-wrap">
+  <div class="reviews-empty notice is-info text-center">
+    <!--{% if product.reviews_count == 0 %}{{ messages.reviews_are_empty }} {% endif %}-->
+  </div>
+  <a class="colreview js-accordeon underline" href="#review-modal">Оставьте свой отзыв о товаре!</a>
+</div>
+
+{% form review %}
+  <div class="m-t-30 m-b-30 {% unless review.errors.size > 0 or form.posted_successfully? %}hide{% endunless %}" data-href="#review-modal">
+    {% include 'review_form' %}
+  </div>
+{% endform %}
+{% endif %}
+
+{% if product.reviews_count > 0 %}
+
+  {% include "reviews_list", reviews_array: product.reviews, reviews_mod: 'product' %}
+
+{% endif %}

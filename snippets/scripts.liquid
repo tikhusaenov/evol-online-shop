@@ -1,0 +1,51 @@
+<script type="text/javascript">
+  Site.messages = {
+    "js_label_article": "{{ messages.js_label_article }}",
+    "js_available": "{{ messages.js_available }}",
+    "js_notAvailable": "{{ messages.js_notAvailable }}",
+    "js_quantityEnds": "{{ messages.js_quantityEnds }}",
+    "js_quantityAlot": "{{ messages.js_quantityAlot }}",
+    "js_quantityNotAvailable": "{{ messages.js_quantityNotAvailable }}",
+    "successReviewSend": "{{ messages.successReviewSend }}",
+    "feedback_sent": "{{ messages.feedback_sent }}",
+    "error_from": "{{ messages.error_from }}",
+    "error_phone": "{{ messages.error_phone }}",
+    "error_name": "{{ messages.error_name }}",
+    "error_subject": "{{ messages.error_subject }}",
+    "error_agree": "{{ messages.error_agree }}",
+    "error_content": "{{ messages.error_content }}",
+    "success_success": "{{ messages.success_success }}",
+    "success_fail": "{{ messages.success_fail }}",
+    "success_error": "{{ messages.success_error }}",
+    "feedback_name": "{{ messages.feedback_name }}",
+    "feedback_phone": "{{ messages.feedback_phone }}",
+    "feedback_subject": "{{ messages.feedback_subject }}",
+    "feedback_content": "{{ messages.feedback_content }}",
+    "t_errorMessages_from": "{{ messages.t_errorMessages_from }}",
+    "t_errorMessages_phone": "{{ messages.t_errorMessages_phone }}",
+    "t_errorMessages_name": "{{ messages.t_errorMessages_name }}",
+    "t_errorMessages_subject": "{{ messages.t_errorMessages_subject }}",
+    "t_errorMessages_agree": "{{ messages.t_errorMessages_agree }}",
+    "t_errorMessages_content": "{{ messages.t_errorMessages_content }}",
+    "feedback_sent": "{{ messages.feedback_sent }}",
+    "label_product": "{{ messages.label_product }}",
+    "label_article": "{{ messages.label_article }}",
+    "feedback_name": "{{ messages.feedback_name }}",
+    "t_errorMessages_success": "{{ messages.t_errorMessages_success }}",
+    "t_errorMessages_fail": "{{ messages.t_errorMessages_fail }}",
+    "t_errorMessages_error": "{{ messages.t_errorMessages_error }}",
+    "reviews_are_moderated": "{{ messages.reviews_are_moderated }}",
+    "promo_autoplay": "{{ settings.promo_slider_autoplay }}"
+  };
+</script>
+
+{% unless is_checkout %}
+<script src="{{ 'jquery.min.js' | asset_url }}"></script>
+{% endunless %}
+<script src="{{ 'insales_theme_settings.js' | asset_url }}"></script>
+<script src="{{ 'plugins.js' | asset_url }}"></script>
+<script src="{{ 'theme.js' | asset_url }}"></script>
+<script src="{{ 'mask.js' | asset_url }}"></script>
+
+{% include "templates_option" %}
+{% include "modals" %}

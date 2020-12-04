@@ -1,0 +1,62 @@
+{% assign remove_filter = true %}
+{% assign remove_price_filter = true %}
+
+{% assign coll_handler = collection.handle %}
+{% assign coll_min = collections[coll_handler].products_price_min | round: 0 %}
+{% assign coll_max = collections[coll_handler].products_price_max | round: 0 %}
+
+{% unless coll_min == coll_max %}
+  {% assign remove_price_filter = false %}
+{% endunless %}
+
+{% if remove_price_filter == false %}
+  {% assign remove_filter = false %}
+{% endif %}
+
+{% for property in collection.properties %}
+  {% for characteristic in property.characteristics %}
+    {% if characteristic.products_count != collection.products.size %}
+      {% assign remove_filter = false %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+{% for option in collection.options %}
+  {% for option_value in option.values %}
+    {% if option_value.products_count != collection.products.size %}
+      {% assign remove_filter = false %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+{% unless collection_on == false and sort_on == false and page_size_on == false %}
+  <div class="collection-sort relative fw-300 {% unless collection_image_on == true %}{% endunless %}">
+    <div class="container">
+      <div class="p-t-30 p-b-30 p-t-15-sm p-b-15-sm">
+        <div class="row flex-middle flex-between">
+          {% if collection_on == true %}
+            <div class="colorfilter cell- cell-2-xs">
+              <div class="collection-filter">
+                <a data-open-filter href="#to-filter">
+                  <span class="inline-middle">
+                    {% include 'svg' with 'icon_collection-filter' %}
+                  </span>
+                  &nbsp;
+                  <span class="inline-middle hide-sm">{{ messages.label_filter }}</span>
+                </a>
+              </div>
+            </div>  
+          {% endif %}
+            
+          {% unless sort_on == true and page_size == true %}
+            {% if collection.products.size > 1 %}
+              <div class="cell- cell-10-xs">
+                {% include 'collection_order' %}
+              </div>
+            {% endif %}
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endunless %}

@@ -1,0 +1,30 @@
+{% for prop in collection.current_characteristics %}
+  <input type="hidden" name="characteristics[]" value="{{ prop.id }}"/>
+{% endfor %}
+
+{% for property in collection.properties %}
+  {% if property.is_numeric? and property.gt_value and property.lt_value %}
+    <input type="hidden" name="properties_gt[{{ property.id }}]" value="{{ property.gt_value }}"/>
+    <input type="hidden" name="properties_lt[{{ property.id }}]" value="{{ property.lt_value }}"/>
+  {% endif %}
+{% endfor %}
+
+{% for val in collection.current_option_values %}
+  <input type="hidden" name="options[{{ val.option_name.id }}][]" value="{{ val.id }}"/>
+{% endfor %}
+
+{% if search.query != '' %}
+  <input type="hidden" name="q" value="{{ search.query }}" />
+{% endif %}
+
+{% if language.not_default? %}
+  <input type="hidden" name="lang" value="{{ language.locale }}" />
+{% endif %}
+
+{% if price_min %}
+  <input type="hidden" name="price_min" value="{{ price_min }}" />
+{% endif %}
+
+{% if price_max %}
+  <input type="hidden" name="price_max" value="{{ price_max }}" />
+{% endif %}

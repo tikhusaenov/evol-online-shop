@@ -1,0 +1,50 @@
+<div id="feedback-modal" class="modal-hide feedback-modal mfp-with-anim pallette_1 modal-color">
+  <div class="feedback-inner">
+    <div class="h4-like text-center m-b-20">{{ messages.t_backcall }}</div>
+
+    <form class="feedback js-feedback" action="/client_account/feedback" method="post">
+
+      <div class="feedback-row m-b-15" data-feedback-field>
+        <label class="form-label m-b-5">{{ messages.field_name }}</label>
+        <div class="feedback-field-wrap">
+          <input placeholder="" name="name" type="text" class="feedback-field inpt text-field p-l-10 p-r-10 w-100" />
+        </div>
+      </div>
+
+      <div class="feedback-row is-required m-b-15" data-feedback-field>
+        <label class="form-label m-b-5">{{ messages.field_phone }}</label>
+        <div class="feedback-field-wrap">
+          <input placeholder="" name="phone" type="text" class="feedback-field inpt text-field p-l-10 p-r-10 w-100" value="" />
+        </div>
+      </div>
+
+      <div class="feedback-row form-error notice notice-error m-b-15" data-feedback-errors style="display: none;">
+      </div>
+      <div class="feedback-row form-done" data-feedback-success>
+      </div>
+
+      <div class="feedback-row m-b-15" data-feedback-field>
+        <label class="feedback-agree chkbx-label">
+          <input checked class="chkbx" type="checkbox" name="" value="" data-feedback-agree>
+          <span class="chkbx-control">
+            {% include 'svg' with 'checkbox' %}
+            {% include 'svg' with 'checkbox-checked' %}
+          </span>
+          <span>{{ messages.s_pers }}</span>
+        </label>
+      </div>
+
+      <div class="feedback-row">
+        <button class="bttn-reg w-100" type="submit" name="bttn" data-feedback-submit>
+          {{ messages.button_submit }}
+        </button>
+      </div>
+
+      {% if language.not_default? %}
+        <input type="hidden" name="lang" value="{{ language.locale }}"/>
+      {% endif %}
+      <input type="hidden" name="subject" value="{{ messages.t_backcall }}">
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,220 @@
+{% assign form_submit = form_submit | default: false %}
+
+{% comment %}
+  filter_active - активность свойства/параметра
+  filters_active  - активность фильтра
+{% endcomment %}
+{% assign filter_active = false %}
+{% assign filters_active = false %}
+{% assign counter = 1 %}
+{% comment %}
+  open_until открывать до. Тоесть если указано 3 откроется 2.
+{% endcomment %}
+{% assign open_until = 3 %}
+{% comment %}
+  Открывать выбранные фильтры
+{% endcomment %}
+{% assign open_active_filter = false %}
+{% assign form_submit = form_submit | default: false %}
+
+{% comment %}
+  filter_active - активность свойства/параметра
+  filters_active  - активность фильтра
+{% endcomment %}
+{% assign filter_active = false %}
+{% assign filters_active = false %}
+{% assign counter = 1 %}
+{% comment %}
+  open_until открывать до. Тоесть если указано 3 откроется 2.
+{% endcomment %}
+{% assign open_until = 3 %}
+{% comment %}
+  Открывать выбранные фильтры
+{% endcomment %}
+{% assign open_active_filter = true %}
+
+{% comment %}
+  open_properties, open_options - Открытые параметры и свойства по названию
+  {% assign open_properties = 'Вес|Габариты' | split: '|' %}
+  {% assign open_options = 'Размер|Цвет' | split: '|' %}
+{% endcomment %}
+{% assign open_properties = '' | split: '|' %}
+{% assign open_options = '' | split: '|' %}
+
+{% assign form_index = 'mask'%}
+
+<form class="collection-filter relative pallette_1 no_bg" action="{{ collection.url }}" method="get" data-submit-onchange="{{ form_submit }}">
+
+
+    <!-- цена -->
+    {% include "get_collection_price", active_attr: 'data-active-filter' %}
+
+    {% include "get_class_filter", is_price: true %}
+
+    {% unless coll_min == coll_max %}
+      <div class="filter js-filter-section is-active-container" {{ price_active }} data-tabs-container>
+        <div class="filter-title">
+          <div class="is-button-active" data-tab-anchor="price">Цена</div>
+        </div>
+        <div class="filter-items-wrapper is-tab-active" data-tab-target="price">
+          {% include "filter_range", range_type: 'price' %}
+        </div>
+      </div>
+    {% endunless %}
+    <!-- / цена -->
+
+    <!-- параметры -->
+    {% for property in collection.properties %}
+
+      {% assign counter = counter | plus: 1 %}
+
+      {% include "property_active", active_attr: 'data-active-filter' %}
+      {% include "get_class_filter" %}
+
+      {% assign remove_this = false %}
+
+      {% comment %}
+          {% for characteristic in property.characteristics %}
+            {% if characteristic.products_count != collection.products.size and collection.products.size > 1 %}
+              {% assign remove_this = false %}
+            {% endif %}
+          {% endfor %}
+      {% endcomment %}
+
+      {% if remove_this == false %}
+        {% if property.title == 'Производитель' %}
+        <div class="filter js-filter-section is-active-container" {{ property_active }} data-tabs-container data-checkbox-change>
+          <div class="filter-title">
+            <div class="is-button-active" data-tab-anchor="{{ property.id }}">{{ property.title }}</div>
+          </div>
+
+          <div class="filter-items-wrapper is-tab-active" data-tab-target="{{ property.id }}">
+            {% if property.is_numeric? %}
+              {% include "filter_range", range_type: 'numeric' %}
+
+            {% elsif property.title == 'Цвет' %}
+              {% include "filter_inputs", filter_type: 'characteristics', input_type: 'checkbox' %}
+
+            {% elsif property.title == 'Размер' %}
+              {% include "filter_inputs", filter_type: 'characteristics', input_type: 'checkbox' %}
+
+            {% else %}
+              {% include "filter_inputs", filter_type: 'characteristics', input_type: 'checkbox' %}
+            {% endif %}
+          </div>
+        </div>
+        {% else %}
+          <div class="filter js-filter-section {{ class_filter[0] }}" {{ property_active }} data-tabs-container data-checkbox-change>
+          <div class="filter-title">
+            <div class="{{ class_filter[1] }}" data-tab-anchor="{{ property.id }}">{{ property.title }}</div>
+          </div>
+
+          <div class="filter-items-wrapper {{ class_filter[2] }}" data-tab-target="{{ property.id }}">
+            {% if property.is_numeric? %}
+              {% include "filter_range", range_type: 'numeric' %}
+
+            {% elsif property.title == 'Цвет' %}
+              {% include "filter_inputs", filter_type: 'characteristics', input_type: 'checkbox' %}
+
+            {% elsif property.title == 'Размер' %}
+              {% include "filter_inputs", filter_type: 'characteristics', input_type: 'checkbox' %}
+
+            {% else %}
+              {% include "filter_inputs", filter_type: 'characteristics', input_type: 'checkbox' %}
+            {% endif %}
+
+          </div>
+        </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    <!-- / параметры -->
+
+  <!-- свойства -->
+  {% for option in collection.options %}
+    {% assign counter = counter | plus: 1 %}
+
+    {% include "option_active", active_attr: 'data-active-filter' %}
+    {% include "get_class_filter" %}
+
+    {% assign remove_this = false %}
+
+    {% comment %}
+      {% for option_value in option.values %}
+        {% if option_value.products_count != collection.products.size %}
+          {% assign remove_this = false %}
+        {% endif %}
+      {% endfor %}
+    {% endcomment %}
+  
+    {% if remove_this == false %}
+      <div data-tabs-container class="filter js-filter-section {{ class_filter[0] }}" {{ option_active }} data-checkbox-change>
+
+        <div class="filter-title">
+          <div class="{{ class_filter[1] }}" data-tab-anchor="{{ option.id }}">{{ option.title }}</div>
+        </div>
+
+        <div class="filter-items-wrapper {{ class_filter[2] }}" data-tab-target="{{ option.id }}">
+          {% if option.title == 'Размер' %}
+            {% include "filter_inputs", filter_type: 'options', input_type: 'checkbox' %}
+
+            {% elsif option.title == 'Цвет' %}
+            {% include "filter_inputs", filter_type: 'options', input_type: 'checkbox' %}
+
+            {% else %}
+            {% include "filter_inputs", filter_type: 'options', input_type: 'checkbox' %}
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  <!-- / свойства -->
+
+
+  {% unless form_submit %}
+    <div class="m-t-30 m-b-10">
+      <button type="submit" class="coloraccept">{{ messages.button_apply }}</button>
+    </div>
+  {% endunless %}
+
+  {% if order %}
+    <input type="hidden" name="order" value="{{ order }}" />
+  {% endif %}
+
+  {% if page_size %}
+    <input type="hidden" name="page_size" value="{{ page_size }}"/>
+  {% endif %}
+
+  {% if language.not_default? %}
+    <input type="hidden" name="lang" value="{{ language.locale }}"/>
+  {% endif %}
+
+  {% if search.query != '' %}
+    <input type="hidden" name="q" value="{{ search.query }}"/>
+  {% endif %}
+
+</form>
+{% if filters_active %}
+  <div class="cleanf_2">
+    <a class="cleanf" href="{{ collection.url }}"  class="filters-clear bttn bttn-second in-filter"><small>Сброс</small></a>
+  </div>
+  <div data-filter-active></div>
+{% endif %}
+
+{% assign header = nil %}
+{% assign coll_min = nil %}
+{% assign coll_max = nil %}
+{% assign form_submit = nil %}
+{% assign counter = nil %}
+{% assign open_until = nil %}
+{% assign class_filter = nil %}
+{% assign open_active_filter = nil %}
+
+{% if coll_min == coll_max and collection.options.size == 0 and collection.properties.size == 0 %}
+<style type="text/css">
+  [data-open-filter],
+  [data-closed-filter]{ 
+    display: none !important; 
+  }
+</style>
+{% endif %}

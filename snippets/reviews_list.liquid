@@ -1,0 +1,76 @@
+{% comment %}
+  {% include "reviews_list", reviews_array: product.reviews, reviews_mod: 'product' %}
+{% endcomment %}
+
+{% unless reviews_array %}
+  {% assign reviews_array = product.reviews %}
+  {% unless reviews_array %}
+    {% assign reviews_array = article.comments %}
+  {% endunless %}
+{% endunless %}
+
+{% unless reviews_limit %}
+  {% assign reviews_limit = 100 %}
+{% endunless %}
+
+{% unless reviews_mod %}
+  {% if template contains 'article' %}
+    {% assign reviews_mod = 'article' %}
+    {% else %}
+    {% assign reviews_mod = 'product' %}
+  {% endif %}
+{% endunless %}
+
+{% if reviews_array.size > 0 %}
+
+<div class="reviews-items-wrap is-{{ reviews_mod }} m-t-20">
+
+  {% for review in reviews_array limit: reviews_limit %}
+    <div class="reviews-item {% if forloop.first %}b-top{% endif %} b-bottom p-t-15 p-b-15">
+      <div class="review-header">
+        <div class="author h4-like m-b-10">{{ review.author }}</div>
+        <div class="date m-b-10"><i class="fa fa-calendar"></i> {{ review.created_at | date: "%d.%m.%Y %H:%M" }}</div>
+
+        {% unless reviews_mod == 'article' %} 
+          {% if review.rating %}
+            <div class="star-rating-wrapper m-b-10">
+              <div class="star-rating">
+                {% assign r = 5 %}
+                {% for i in (1..5) %}
+                  <span class="star-item {% if review.rating == r %}active{% endif %}"></span>
+                  {% assign r = r | minus: 1 %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endunless %}
+      </div>
+      <div class="review-body">
+        <div>{{ review.content }}</div>
+        {% if review.image.medium_url.size > 0 %}
+          <div class="m-t-20">
+            <a class="MagicZoom" href="{{ review.image.original_url }}" data-options="hint: off; zoomMode: off;" onclick="MagicZoom.expand('review_gallery_{{ forloop.index }}');" id="review_gallery_{{ forloop.index }}">
+              <img src="{{ review.image.medium_url }}" />
+            </a>
+          </div>
+        {% endif %}
+      </div>
+
+      {% if review.replied? %}
+        <div class="comments-item comments-item p-t-15 text-right fw-300">
+          <div class="comment-body">
+            — {{ review.manager_reply }}
+          </div>
+          <div class="comment-footer">
+            <div class="date">
+              {{ review.replied_at | date: "%d.%m.%Y %H:%M" }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div><!-- /.reviews-item -->
+  {% endfor %}
+
+</div><!-- /.reviews-list -->
+
+{% endif %}

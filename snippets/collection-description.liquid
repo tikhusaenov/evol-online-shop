@@ -1,0 +1,27 @@
+{% if collection-description == 'short' %}
+	{% if filter.seo_description %}
+		<div class="collection-seo_description m-b-50 {% if settings.collection_short_description_place == 'after' %}m-t-50{% endif %}">
+		  {{ filter.seo_description | editable }}
+		</div>
+	{% else %}
+		{% if collection.seo_description %}
+		  <div class="collection-seo_description m-b-50 {% if settings.collection_short_description_place == 'after' %}m-t-50{% endif %}">
+			  {{ collection.seo_description | editable }}
+		  </div>
+		{% endif %}
+	{% endif %}
+{% endif %}
+
+{% if collection-description == 'full' %}
+	{% if filter.description %}
+    <div class="collection-description m-b-50 editor {% if settings.collection_description_place == 'after' %}m-t-50{% endif %}">
+      {{ filter.description | editable }}
+    </div>
+  {% else %}
+    {% if collection.description %}
+      <div class="collection-description m-b-50 editor {% if settings.collection_description_place == 'after' %}m-t-50{% endif %}">
+        {{ collection.description | editable }}
+      </div>
+    {% endif %}
+  {% endif %}
+{% endif %}

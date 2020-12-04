@@ -1,0 +1,56 @@
+<div class="js-recently_view"></div>
+
+<script type="text/template" data-template-id="recently_view">
+
+    <div class="products products-recently js-recently-slider">
+
+      <div class="container">
+
+        <h3 class="index-title">
+          Ранее вы смотрели
+        </h3>
+
+        <div class="products-slider-wrapper">
+          <div class="products-slider swiper-container is-recently" data-slider-mod=".swiper-container.is-recently">
+            <div class="swiper-wrapper">
+
+              <% _.forEach(products, function (product){  %>
+              <div class="swiper-slide slide-is-recently">
+                <div class="card_micro">
+                  <div class="row">
+                    <div class="cell-4">
+                      <a href="<%= product.url %>" class="image-container is-square card_micro-image">
+                        <img src="<%= product.first_image.large_url %>">
+                      </a>
+                    </div>
+                    <div class="cell-8">
+                      <div class="card_micro-info">
+                        <a href="<%= product.url %>" class="card_micro-title">
+                          <%= product.title %>
+                        </a>
+
+                        <div class="card_micro-prices">
+                          <a href="<%= product.url %>" class="card_micro-price">
+                            <%= Shop.money.format(product.variants[0].price) %>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% }) %>
+
+            </div>
+          </div>
+          <div class="products-control">
+            <div class="swiper-button-prev products-control-prev">
+            </div>
+            <div class="swiper-button-next products-control-next">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</script>

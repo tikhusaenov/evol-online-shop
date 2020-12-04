@@ -1,0 +1,178 @@
+{% if collection_image_on == true %}
+  {% assign breadcrumb_classes = 'p-t-30 p-b-30 p-t-15-sm p-b-15-sm' %}
+{% else %}
+  {% if breadcrumb == 'has-bg' %}
+      {% assign breadcrumb_classes = 'has-bg' %}
+    {% else %}
+      {% assign breadcrumb_classes = 'pallette_2 p-t-30 p-b-30 p-t-15-sm p-b-15-sm' %}
+  {% endif %}
+{% endif %}
+{% assign with_tag = blog.tags.first.current? %}
+{% assign show_last = show_last | default: true %}
+
+{% assign with_tag = blog.tags.first.current? %}
+{% assign show_last = show_last | default: true %}
+
+<div class="breadcrumb-wrapper p-t-30 p-b-30 p-t-15-sm p-b-15-sm">
+  <div class="container">
+
+    <ul class="breadcrumb no-list-style no-pad no-marg">
+
+      <li class="breadcrumb-item home">
+        <a class="breadcrumb-link " title="{{ messages.breadcrumb_home }}" href="/">{{ messages.breadcrumb_home }}</a>
+      </li>
+
+      {% if template contains 'page' and show_last %}
+        <li class="breadcrumb-item">
+          <span class="breadcrumb-page">{{ page.title }}</span>
+        </li>
+
+      {% elsif template contains "search" and show_last %}
+        <li class="breadcrumb-item">
+          <span class="breadcrumb-page">
+            {{ messages.search_title }}
+          </span>
+        </li>
+
+      {% elsif template contains "blog" %}
+        {% if with_tag %}
+          <li class="breadcrumb-item">
+            <a href="{{ blog.url }}" class="breadcrumb-link">{{ blog.title }}</a>
+          </li>
+
+          <li class="breadcrumb-item">
+            <span class="breadcrumb-page">{{ blog.tags.first.title }}</span>
+          </li>
+
+        {% elsif show_last %}
+          <li class="breadcrumb-item">
+            <span class="breadcrumb-page">{{ blog.title }}</span>
+          </li>
+        {% endif %}
+
+      {% elsif template contains 'article' %}
+        <li class="breadcrumb-item">
+          <a class="breadcrumb-link" title="{{ blog.title }}" href="{{ blog.url }}">{{ blog.title }}</a>
+        </li>
+
+        {% if show_last %}
+          <li class="breadcrumb-item">
+            <span class="breadcrumb-page">{{ article.title }}</span>
+          </li>
+        {% endif %}
+
+      {% elsif template contains 'cart' and show_last %}
+        <li class="breadcrumb-item">
+          <span class="breadcrumb-page">
+            {{ messages.cart_title }}
+          </span>
+        </li>
+
+      {% elsif template contains 'compare' and show_last %}
+        <li class="breadcrumb-item">
+          <span class="breadcrumb-page">
+            {{ messages.comparison_title }}
+          </span>
+        </li>
+
+      {% elsif template contains 'collection' %}
+        {% if current_collections.size == 1 and show_last %}
+        {% if filter %}
+          <li class="breadcrumb-item" >
+          <a class="breadcrumb-link" title="{{ collection.title }}" href="{{ collection.url }}">{{ collection.title }}</a>
+        </li>
+          <li class="breadcrumb-item">
+            <span class="breadcrumb-page">{{ filter.title }}</span>
+          </li>
+          {% else %}
+          <li class="breadcrumb-item">
+            <span class="breadcrumb-page">{{ collection.title }}</span>
+          </li>
+          {% endif %}
+
+        {% elsif current_collections.size > 0 %}
+
+          {% for collection in current_collections %}
+            {% if collection.level > 0 %}
+              {% unless forloop.last %}
+                <li class="breadcrumb-item" data-breadcrumbs="{{ forloop.index }}">
+                  <a class="breadcrumb-link" title="{{ collection.title }}" href="{{ collection.url }}">{{ collection.title }}</a>
+                </li>
+                {% if forloop.index == 2 and current_collections.size > 3 %}
+                  <li class="breadcrumb-item button-breadcrumb">
+                    <button class="bttn-hidden-breadcrumbs hidden-breadcrumbs js-hidden-bread" > ... </button>
+                  </li> 
+                {% endif %}
+              {% elsif show_last %}
+                {% if filter %}
+                  <li class="breadcrumb-item" >
+                    <a class="breadcrumb-link" title="{{ collection.title }}" href="{{ collection.url }}">{{ collection.title }}</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <span class="breadcrumb-page">{{ filter.title }}</span>
+                  </li>
+                {% else %}
+                  <li class="breadcrumb-item">
+                    <span class="breadcrumb-page">{{ collection.title }}</span>
+                  </li>
+                {% endif %}
+              {% endunless %}
+            {% endif %}
+          {% endfor %}
+
+        {% endif %}
+
+      {% elsif template contains 'product' %}
+        {% comment %}
+          мы перешли в товар из корня каталога
+        {% endcomment %}
+        {% if current_collections.size == 1 %}
+          {% assign path = current_collections %}
+          {% assign ignor_root = false %}
+
+        {% comment %}
+          мы переходили по сайту - все ок, мы знаем как сюда пришли
+        {% endcomment %}
+        {% elsif current_collections.size > 1 %}
+          {% assign path = current_collections %}
+          {% assign ignor_root = true %}
+
+        {% comment %}
+          мы перешли с внешней ссылки и не знаем, к какой категории относится товар
+        {% endcomment %}
+        {% else %}
+          {% assign root = product.collections | sort: 'level' %}
+          {% assign path = root.last.current_collections %}
+          {% assign ignor_root = true %}
+        {% endif %}
+
+        {% assign show_link = true %}
+        {% for collection in path %}
+          {% if collection.level == 0 and ignor_root %}
+            {% assign show_link = false %}
+          {% endif %}
+
+          {% if show_link %}
+            <li class="breadcrumb-item" data-breadcrumbs="{{ forloop.index }}">
+              <a class="breadcrumb-link" title="{{ collection.title }}" href="{{ collection.url }}">{{ collection.title }}</a>
+            </li>
+            {% if forloop.index == 2 and path.size > 3 %}
+              <li class="breadcrumb-item button-breadcrumb">
+                <button class="bttn-hidden-breadcrumbs hidden-breadcrumbs js-hidden-bread" > ... </button>
+              </li>
+            {% endif %}
+          {% endif %}
+
+          {% assign show_link = true %}
+        {% endfor %}
+
+      {% endif %}
+
+    </ul>
+  </div>
+
+</div>
+
+{% assign show_link = null %}
+{% assign path = null %}
+{% assign with_tag = null %}

@@ -1,0 +1,121 @@
+<div class="cart-popup side-popup transition pallette_1" custom-popup-modal="dynamic_basket">
+  <div class="cart-title_1 text-center p-b-20">{{ messages.t_basket }}</div>
+  <div class="cart-items dynamic_basket js-dynamic_basket"></div>
+</div>
+
+<div class="popup-bg" custom-popup-bg="dynamic_basket"></div>
+
+<script type="text/template" data-template-id="dynamic_basket">
+  <form action="{{ cart_url }}" method="post" data-ajax-cart>
+    <input type="hidden" name="_method" value="put">
+    <input type="hidden" name="make_order" value="">
+
+    <a class="button-close dynamic_basket-close" href="#" custom-popup-close="dynamic_basket">
+      {% include 'svg' with 'icon_close' %}
+    </a>
+ 
+    <div class="dynamic_basket-list">
+      <% if(order_lines.length == 0){ %>
+        <div class="notice notice-empty text-center">
+          {{ messages.cart_is_empty }}
+        </div>
+      <% } %>
+      <% _.forEach(order_lines, function (value){  %>
+        <div class="cart-item b-top p-t-15 p-b-15" data-item-id="<%= value.id %>" data-product-id="<%= value.product_id %>">
+          <div class="row is-grid">
+            <div class="cart-image cell-4">
+              <img src="<% if(value.first_image.medium_url == '/images/no_image_medium.jpg'){ %>{{ 'no_image.png' | asset_url }}<% } %><% if(value.first_image.medium_url != '/images/no_image_medium.jpg'){ %><%= value.first_image.medium_url %><% } %>" />
+            </div>
+            <div class="cart-text cell-8">
+              <div class="cart-title_2 m-b-15"><%= value.title %></div>
+              
+              <div class="cart-price m-b-5">
+                <label class="cart-label fw-300">{{ messages.label_price }}:</label> 
+                <span class="c_special_2_color fw-400" data-change-price><%= Shop.money.format(value.sale_price) %></span>
+              </div>
+
+              <div class="cart-quan m-b-5">
+                <label class="cart-label fw-300 inline-middle">{{ messages.text_quan }}:</label> 
+                <div data-quantity class="quantity is-basket inline-middle">
+                  <div class="quantity-controls  quantity-color">
+                    <button data-quantity-change="-1" class="quantity-control quan-color_1  bttn-count">-</button>
+
+                    <input class="quantity-input quan-color" type="text" name="cart[quantity][<%= value.id %>]" value="<%= value.quantity %>" />
+
+                    <button data-quantity-change="1" class="quantity-control quan-color_1 bttn-count">+</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="cart-delete">
+                <button class="cart-delete_btn fw-300 c_special_2_color" data-item-delete="<%= value.id %>"><small>{{ messages.button_remove }}</small></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      <% }) %>
+
+    </div>
+
+    <% if(order_lines.length > 0){ %>
+
+    <div class="b-top b-bottom p-t-15 p-b-15">
+      <div data-discounts class="cart-disc">
+        <% if(typeof errors !== 'undefined' && errors.length > 0) { %>
+          <% _.forEach(errors, function (valueerr){  %>
+          <div class="cell-12 m-b-10">
+            <%= valueerr %>
+          </div>
+          <% }) %>
+        <% } %>
+
+        <% if(typeof coupon !== 'undefined' && !coupon.valid && coupon.error) { %>
+          <div class="cell-12 m-b-10">
+            <%= coupon.error %>
+          </div>
+        <% } %>
+
+        <% if(typeof discounts !== 'undefined' && discounts.length) { %>
+          <% _.forEach(order_lines, function (disc){  %>
+          <div class="cell-">
+            <%= disc.description %>
+          </div>
+          <div class="cell-">
+            <% var discPrice = '-' + disc.discount + '%'; if(disc.percent == null){var discPrice = Shop.money.format(disc.discount)}; %>
+            <%= discPrice %>
+          </div>
+          <% }) %>
+        <% } %>
+      </div>
+      {% if cart.enable_coupon? or cart.discounts.size > 0 %}
+        <div class="cell-12 coupon-wrapper m-b-15">
+          <input class="inpt inpt-underline text-center w-100" type="text" name="cart[coupon]" placeholder="Купон" value="<% if(typeof coupon != 'undefined'){ %><%= coupon.value %><% } %>" data-item-coupon />      
+        </div>
+      {% endif %}
+      <div class="dynamic_basket-total row is-grid flex-middle flex-between">
+        <div class="cell-6 cart-itog_1 text-uppercase">{{ messages.subtotal }}</div>
+        <div class="basket-total-price cell-6 cart-itog_2 fw-700 text-right c_special_2_color" data-basket-total-price>
+          <%= Shop.money.format(total_price) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="basket-footer row is-grid flex-middle p-t-15 p-b-15">
+      
+      <div class="cell-12">
+        <div class="relative">
+          <button type="submit" data-cart-submit class="dynamic_basket-submit button_to_of w-100">
+
+            {{ messages.button_checkout }}
+            
+          </button>
+          <a class=" button_to_of_1 w-100 text-center top-10 left-0 right-0 bottom-0 no-transparent" href="#" data-coupon-submit style="display: none;">{{ messages.coupon_checkout }}</a>
+        </div>
+      </div>
+    </div>
+
+    <% } %>
+  </form>
+</script>

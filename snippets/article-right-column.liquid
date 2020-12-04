@@ -1,0 +1,16 @@
+{% for blog in blogs limit: 3 %}
+
+  {% if blog.articles.size > 0 %}
+    <h2 class="h1-like text-center m-t-50 m-b-30">{{ blog.title }}</h2>
+    <div class="blog">
+      <div class="articles-list masonry-style">
+        {% for article in articles %}
+          <div class="m-b-20">
+            {% include 'article_preview', article_prefix: 'in-blog' %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+{% endfor %}

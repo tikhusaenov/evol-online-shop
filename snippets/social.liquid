@@ -1,0 +1,33 @@
+<ul class="social no-list-style h4-like p-0 m-t-0 m-b-0">
+  {% for i in (1..5) %}
+    {% if i == 1 %}
+      {% assign soc_link = settings.vk %}
+      {% assign soc_icon = 'vk' %}
+    {% endif %}
+    {% if i == 2 %}
+      {% assign soc_link = settings.twitter %}
+      {% assign soc_icon = 'twitter' %}
+    {% endif %}
+    {% if i == 3 %}
+      {% assign soc_link = settings.facebook %}
+      {% assign soc_icon = 'facebook' %}
+    {% endif %}
+    {% if i == 4 %}
+      {% assign soc_link = settings.instagram %}
+      {% assign soc_icon = 'instagram' %}
+    {% endif %}
+    {% if i == 5 %}
+      {% assign soc_link = settings.odnoklassniki %}
+      {% assign soc_icon = 'odnoklassniki' %}
+    {% endif %}
+
+    {% if soc_link.size > 0 %}
+    <li class="inline-middle">
+      <a target="_blank" href="{{ soc_link }}" title="{{ soc_icon }}" title="{{ soc_icon }}">
+        <div class="fab fa-{{ soc_icon }}" aria-hidden="true"></div>
+      </a>
+      <span>&nbsp;</span>
+    </li> 
+    {% endif %}
+  {% endfor %}
+</ul>

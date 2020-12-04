@@ -1,0 +1,39 @@
+{% comment %}
+  {{ article.created_at | date: "%d" }} {% include "month" , created: article.created_at %}
+{% endcomment %}
+
+{% assign monthdate = created | date: "%B" %}
+
+{% case monthdate %}
+
+{% when 'January' %}
+    {% assign month_name = 'января' %}
+{% when 'February' %}
+      {% assign month_name = 'февраля' %}
+{% when 'March' %}
+      {% assign month_name = 'марта' %}
+{% when 'April' %}
+      {% assign month_name = 'апреля' %}
+{% when 'May' %}
+      {% assign month_name = 'мая' %}
+{% when 'June' %}
+      {% assign month_name = 'июня' %}
+{% when 'July' %}
+      {% assign month_name = 'июля' %}
+{% when 'August' %}
+      {% assign month_name = 'августа' %}
+{% when 'September' %}
+      {% assign month_name = 'сентября' %}
+{% when 'October' %}
+      {% assign month_name = 'октября' %}
+{% when 'November' %}
+      {% assign month_name = 'ноября' %}
+{% when 'December' %}
+      {% assign month_name = 'декабря' %}
+{% else %}
+    {% assign month_name = '' %}
+{% endcase %}
+{{ month_name }}
+{% assign created = nil %}
+{% assign monthdate = nil %}
+{% assign month_name = nil %}

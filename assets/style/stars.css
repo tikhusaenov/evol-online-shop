@@ -1,0 +1,128 @@
+.star-rating-wrapper {
+  *zoom: 1;
+}
+
+.star-rating-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.star-rating {
+  float: left;
+  *zoom: 1;
+}
+
+.star-rating:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.star-rating .star-radio {
+  display: none;
+}
+
+.star-rating .star-radio:hover ~ .star-label:after,
+.star-rating .star-radio:checked ~ .star-label:after {
+  background-image: url('star.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+
+.star-rating .star-radio:hover ~ .star-label:after {
+  background-image: url('star.svg') !important;
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+
+.star-rating .star-radio:checked ~ .star-label:after {
+  background-image: url('star.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+
+.star-rating .star-label {
+  cursor: pointer;
+  float: right;
+  font-size: 1.4rem;
+  margin-right: 3px;
+}
+
+.star-rating .star-label:first-child {
+  margin-right: 0;
+}
+
+.star-rating .star-label:after {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url('star-empty.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+
+.star-rating .star-label:hover:after {
+  background-image: url('star.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+
+.star-rating .star-label:hover ~ .star-label:after {
+  background-image: url('star.svg') !important;
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+
+.star-rating .star-label.active ~ .star-label:after,
+.star-rating .star-label.active:after {
+  background-image: url('star.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+
+.star-rating .star-item {
+  float: right;
+  overflow: hidden;
+  margin-right: 3px;
+}
+
+.star-rating .star-item:first-child {
+  margin-right: 0;
+}
+
+.star-rating .star-item:after {
+  content: "";
+  display: inline-block; 
+  width: 16px;
+  height: 16px;
+  background-image: url('star-empty.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  margin-right: 5px;
+}
+
+.star-rating .star-item.active:after {
+  background-image: url('star.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  content: "";
+}
+
+.star-rating .star-item.active ~ .star-item:after {
+  background-image: url('star.svg');
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  content: "";
+}

@@ -1,0 +1,74 @@
+<script src="{{ 'jquery.cookie.js' | asset_url }}"></script>
+{% assign mod_recently_view_count = 3 %}
+
+
+<div class="related-product">
+
+    <div class="text-center m-b-20 titleHeader clearfix">
+        <h3 class="title_header_pros">Вы просматривали</h3>
+    </div>
+    
+    <div class="image-flex-center row is-grid" id="recently-view">
+    
+    
+    
+    </div><!--end row-->
+</div><!--end related-product-->
+
+
+
+
+<script type="text/javascript">
+  // Функция сохранения товаров при просмотре. Она нам не интересна, оставляем без изменений
+  function saveProduct(pid) {
+
+
+
+        
+        if ($.cookie('product_ids') != null) {
+          var arr = $.cookie('product_ids').split(',');
+          for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == pid) {
+              return;
+            }
+          }
+          if (arr.length >= {{ mod_recently_view_count }}) {
+            arr.shift();
+          }
+          arr.push(pid);
+          $.cookie('product_ids', arr, {
+            path: '/'
+          });
+        } else {
+          $.cookie('product_ids', pid, {
+            path: '/'
+          });
+        }
+      }
+  
+  $(function() {   
+    if($.cookie('product_ids') != null) {
+      $.getJSON("/products_by_id/"+$.cookie('product_ids')+".json",
+        function(data){
+          var products = '';
+          $.each(data.products, function(i,product){
+            //Тут у нас самый главный код. В переменную products подгружается код товаров. Основные изменения нужно делать Тут
+            products += 
+            ' <div class="cell-3_pros m-b-30  cell-4-m_pros cell-6-sm cell-12-xs "><div class="product-item_pros m-r-20"><a class="product-image square  no-transparent " href="/product/?product_id=' + product.id + 
+            '"><img src="'+ product.images[0].medium_url +'"></a>';
+            products +=  
+            '<div class="colordesc_pros"><div class="textal_pros"><a href="/product/?product_id=' + product.id + 
+            '" class="invarseColor">'+ product.title + '</a></div></div>';
+            products += 
+            '<div class="thumbPrice"><span>' + InSales.formatMoney(product.variants[0].base_price, "{{money_with_currency_format}}")+'</span>';
+            products += '</div></div></div>';
+          });
+          $('#recently-view').html(products);
+        });
+      $('#recently_view').show();
+    }
+    {% if template == 'product' %}
+      saveProduct({{product.id}});
+    {% endif %}
+     });    
+</script>

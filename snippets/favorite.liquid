@@ -1,0 +1,17 @@
+<div class="js-favorite"></div>
+
+<script type="text/template" data-template-id="favorite">
+
+    <div class="products-favorite">
+
+      <div class="row is-grid">
+        <% _.forEach(products, function (product){  %>
+        <div class="cell-4 cell-6-sm cell-12-xs">
+          {% include "template_card"  %}
+        </div>
+        <% }) %>
+      </div>
+
+    </div>
+
+</script>
